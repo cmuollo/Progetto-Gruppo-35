@@ -1,9 +1,10 @@
 <?php
 // Importo la stringa di connessione al DB ($connection_string)
-require_once __DIR__ . "/includes/config.php";
+require_once __DIR__ . "/includes/logindb.php";
 
 // Variabile per messaggi di errore da mostrare nella pagina
 $errore = "";
+$showLoginLink = false;
 
 // Flag che diventa true se la registrazione va a buon fine
 $ok = false;
@@ -55,11 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $sql = "INSERT INTO utenti (nome,cognome,telefono,email,password_hash,security_question,security_answer_hash)
                     VALUES ($1,$2,$3,$4,$5,$6,$7)";
 
-            // Controllo preventivo: esiste già un account con questa email?
-            $showLoginLink = false;
-            $exists = pg_query_params($conn, 'SELECT 1 FROM utenti WHERE email=$1', array($email));
+            // Controllo preventivo: esiste già un account con questa email o telefono?
+            $exists = pg_query_params(
+                $conn,
+                'SELECT 1 FROM utenti WHERE email=$1 OR telefono=$2 LIMIT 1',
+                array($email, $telefono)
+            );
             if ($exists && pg_num_rows($exists) > 0) {
-                $errore = "Email già registrata. Se è il tuo account accedi.";
+                $errore = "Email o telefono già esistenti.";
                 $showLoginLink = true;
             } else {
                 // Preparo la query con un nome "ins_user" (prepared statement)
@@ -78,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     // Se nell'errore compare "duplicate" assumo email già registrata
                     if ($db_err && stripos($db_err, "duplicate") !== false) {
-                        $errore = "Email già registrata. Se è il tuo account accedi.";
+                        $errore = "Email o telefono già esistenti.";
                         $showLoginLink = true;
                     } else {
                         $errore = "Errore database.";
@@ -94,6 +98,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
     }
+}
+
+// Valori "sticky" per ripopolare il form in caso di errore
+$sticky = [
+    'nome' => htmlspecialchars($_POST['nome'] ?? '', ENT_QUOTES, 'UTF-8'),
+    'cognome' => htmlspecialchars($_POST['cognome'] ?? '', ENT_QUOTES, 'UTF-8'),
+    'telefono' => htmlspecialchars($_POST['telefono'] ?? '', ENT_QUOTES, 'UTF-8'),
+    'email' => htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8'),
+    'security_question' => $_POST['security_question'] ?? '',
+    'security_answer' => htmlspecialchars($_POST['security_answer'] ?? '', ENT_QUOTES, 'UTF-8'),
+];
+
+// Carico email/telefono esistenti per controllo client-side
+$existingUsers = [];
+$connList = pg_connect($connection_string);
+if ($connList) {
+    $resList = pg_query($connList, 'SELECT email, telefono FROM utenti');
+    if ($resList) {
+        while ($row = pg_fetch_assoc($resList)) {
+            $existingUsers[] = [
+                'email' => strtolower(trim($row['email'] ?? '')),
+                'telefono' => preg_replace('/\D+/', '', $row['telefono'] ?? '')
+            ];
+        }
+    }
+    pg_close($connList);
 }
 ?>
 <!DOCTYPE html>
@@ -128,6 +158,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </p>
         <?php endif; ?>
 
+        <p id="duplicate-error" style="color:#ff6b6b; margin-bottom:15px; display:none;">
+            Email o numero di telefono già esistenti. Se hai un account <a class="gold-link" href="login.php">Accedi</a>
+        </p>
+
         <!-- Se registrazione ok mostro messaggio + link login -->
         <?php if ($ok): ?>
             <p style="color:#d4af37; margin-bottom:15px;">
@@ -142,22 +176,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="form-row">
                 <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" placeholder="Mario" required>
+                    <input type="text" id="nome" name="nome" placeholder="Mario" required value="<?= $sticky['nome'] ?>">
                 </div>
                 <div class="form-group">
                     <label for="cognome">Cognome</label>
-                    <input type="text" id="cognome" name="cognome" placeholder="Rossi" required>
+                    <input type="text" id="cognome" name="cognome" placeholder="Rossi" required value="<?= $sticky['cognome'] ?>">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="telefono">Telefono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="333 1234567" required>
+                <input type="tel" id="telefono" name="telefono" placeholder="333 1234567" required value="<?= $sticky['telefono'] ?>">
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="latuamail@esempio.com" required>
+                <input type="email" id="email" name="email" placeholder="latuamail@esempio.com" required value="<?= $sticky['email'] ?>">
             </div>
 
             <div class="form-group has-eye">
@@ -185,17 +219,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="form-group">
                 <label for="security_question">Domanda di sicurezza</label>
                 <select id="security_question" name="security_question" required>
-                    <option value="" disabled selected>-- Seleziona una domanda --</option>
-                    <option value="pet">Qual è il nome del tuo primo animale domestico?</option>
-                    <option value="school">Qual è stata la tua scuola elementare?</option>
-                    <option value="team">Qual è la tua squadra del cuore?</option>
-                    <option value="movie">Qual è il tuo film preferito?</option>
+                    <option value="" disabled <?= $sticky['security_question'] === '' ? 'selected' : '' ?>>-- Seleziona una domanda --</option>
+                    <option value="pet" <?= $sticky['security_question'] === 'pet' ? 'selected' : '' ?>>Qual è il nome del tuo primo animale domestico?</option>
+                    <option value="school" <?= $sticky['security_question'] === 'school' ? 'selected' : '' ?>>Qual è stata la tua scuola elementare?</option>
+                    <option value="team" <?= $sticky['security_question'] === 'team' ? 'selected' : '' ?>>Qual è la tua squadra del cuore?</option>
+                    <option value="movie" <?= $sticky['security_question'] === 'movie' ? 'selected' : '' ?>>Qual è il tuo film preferito?</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="security_answer">Risposta</label>
-                <input type="text" id="security_answer" name="security_answer" placeholder="Scrivi la risposta" required>
+                <input type="text" id="security_answer" name="security_answer" placeholder="Scrivi la risposta" required value="<?= $sticky['security_answer'] ?>">
             </div>
 
             <button type="submit" class="btn-submit">Registrati</button>
@@ -299,6 +333,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const registerForm = document.getElementById('registerForm');
     const telInput = document.getElementById('telefono');
     const telError = document.getElementById('telefono-error');
+    const emailInput = document.getElementById('email');
+    const dupError = document.getElementById('duplicate-error');
+    const existingUsers = <?php echo json_encode($existingUsers); ?>;
     if (telInput) {
         telInput.addEventListener('input', function(){
             const digits = (this.value||'').replace(/\D/g,'');
@@ -313,6 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (registerForm) {
         registerForm.addEventListener('submit', function(e) {
+            if (dupError) dupError.style.display = 'none';
+            if (emailInput) emailInput.style.borderColor = '';
+            if (telInput) telInput.style.borderColor = '';
+
             if (telInput) {
                 const digits = (telInput.value || '').replace(/\D/g, '');
                 if (digits.length !== 10) {
@@ -320,6 +361,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (telError) telError.style.display = 'block';
                     telInput.style.borderColor = '#b00020';
                     telInput.focus();
+                    return false;
+                }
+            }
+
+            if (emailInput && telInput) {
+                const emailVal = (emailInput.value || '').trim().toLowerCase();
+                const telDigits = (telInput.value || '').replace(/\D/g, '');
+                const dup = (existingUsers || []).some(function(u){
+                    return (u.email && u.email === emailVal) || (u.telefono && u.telefono === telDigits);
+                });
+                if (dup) {
+                    e.preventDefault();
+                    if (dupError) dupError.style.display = 'block';
+                    if (emailInput) emailInput.style.borderColor = '#b00020';
+                    if (telInput) telInput.style.borderColor = '#b00020';
+                    if (emailInput) emailInput.focus();
                     return false;
                 }
             }

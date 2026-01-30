@@ -21,7 +21,7 @@ if (!isset($_SESSION["user_id"])) {
 
 // If frontend requests availability for a specific date, return JSON
 if (isset($_GET['availability_date'])) {
-    require_once __DIR__ . "/includes/config.php";
+    require_once __DIR__ . "/includes/logindb.php";
     $conn = pg_connect($connection_string);
     if (!$conn) {
         http_response_code(500);
@@ -45,7 +45,7 @@ if (isset($_GET['availability_date'])) {
 
 // Check whether current user already has a booking for this date/orario or same day
 if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
-    require_once __DIR__ . "/includes/config.php";
+    require_once __DIR__ . "/includes/logindb.php";
     $conn = pg_connect($connection_string);
     if (!$conn) {
         http_response_code(500);
@@ -110,7 +110,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Cancellation request (AJAX or form)
         if (isset($_POST['cancel_booking']) && !empty($_POST['booking_id'])) {
-            include __DIR__ . "/includes/config.php";
+            include __DIR__ . "/includes/logindb.php";
             $conn = pg_connect($connection_string);
             if (!$conn) {
                 $error = "Errore di connessione al database.";
@@ -299,7 +299,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                 <?php
                 $userUpcoming = [];
                 if (isset($_SESSION['user_id'])) {
-                    include __DIR__ . "/includes/config.php";
+                    include __DIR__ . "/includes/logindb.php";
                     $c = pg_connect($connection_string);
                     if ($c) {
                         $nowDate = (new DateTime('now'))->format('Y-m-d');

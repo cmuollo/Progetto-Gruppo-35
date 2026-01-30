@@ -1,7 +1,7 @@
 <?php
 //pagina visibile solo agli admin che consente di vedere tutte le prenotazioni e i contatti degli utenti
 session_start();
-require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/logindb.php';
 
 // Accesso riservato agli amministratori
 if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') {
@@ -210,6 +210,7 @@ pg_close($conn);
             </tbody>
         </table>
         </div>
+
     </main>
     <script>
         // intervallo di polling per verificare nuove cancellazioni

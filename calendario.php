@@ -100,8 +100,8 @@ if ($conn) {
             <div class="form-error" style="color:#b00020; margin-bottom:10px;"><?= htmlspecialchars($dbError) ?></div>
         <?php endif; ?>
 
-        <div class="table-container">
-                <table id="calendarTable" class="booking-table calendar-grid">
+    <div class="table-container">
+        <table id="calendarTable" class="booking-table calendar-grid">
                 <thead>
                     <tr>
                         <th class="time">Orario</th>
@@ -170,9 +170,8 @@ if ($conn) {
                 <div class="item"><span class="swatch" style="background:#f1c40f; padding: 20px; margin-left: 20px;"></span> Parzialmente occupato (nome del barbiere occupato)</div>
                 <div class="item"><span class="swatch" style="background:#e74c3c; padding: 20px; margin-left: 20px;"></span> Occupato</div>
             </div>
-        </div>
+    </div>
     </main>
-
 <?php include __DIR__ . "/includes/footer.php"; ?>
 
 </body>

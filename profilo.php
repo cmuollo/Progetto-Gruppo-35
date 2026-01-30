@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/logindb.php';
 
 // Solo utenti autenticati
 if (!isset($_SESSION['user_id'])) {
@@ -15,11 +15,15 @@ $userid = intval($_SESSION['user_id']);
 $messaggio = '';
 $mostra_form = false;
 $user_data = array('nome' => '', 'cognome' => '', 'telefono' => '', 'email' => '', 'security_question' => '');
+$edit_values = $user_data;
 
 // 1. CARICA DATI UTENTE (sicuro)
 $sql = "SELECT nome, cognome, telefono, email, security_question FROM utenti WHERE id = $1";
 $res = pg_query_params($conn, $sql, array($userid));
-if ($res) $user_data = pg_fetch_assoc($res) ?: $user_data;
+if ($res) {
+    $user_data = pg_fetch_assoc($res) ?: $user_data;
+    $edit_values = $user_data;
+}
 
 // Nota: non persistiamo la verifica della password nella sessione. L'utente può
 // verificare la password per mostrare il form nella stessa richiesta; l'aggiornamento
@@ -53,6 +57,15 @@ if (isset($_POST['aggiorna_dati'])) {
     $telefono = trim($_POST['telefono'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $current_password = trim($_POST['current_password'] ?? '');
+
+    // valori sticky per la seconda fase (salva i dati inseriti anche in caso di errore)
+    $edit_values = array(
+        'nome' => $nome,
+        'cognome' => $cognome,
+        'telefono' => $telefono,
+        'email' => $email,
+        'security_question' => $user_data['security_question'] ?? ''
+    );
 
     if (empty($current_password)) {
         $messaggio = '<div class="error-msg">Devi inserire la password attuale per confermare la modifica.</div>';
@@ -124,7 +137,7 @@ pg_close($conn);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* stili per il form */
-        .profile-container { max-width: 600px; margin: 120px auto 40px; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .profile-container { max-width: 600px; margin: 120px auto 80px; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .success-msg { color: #2e7d32; margin-bottom: 12px; font-weight: 600; }
         .error-msg { color: #b00020; margin-bottom: 12px; font-weight: 600; }
         .profile-title { text-align: center; color: #d4af37; margin-bottom: 30px; font-size: 2.2em; }
@@ -143,7 +156,7 @@ pg_close($conn);
         .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255,107,107,0.4); }
         .password-section, .edit-section { display: <?php echo $mostra_form ? 'none' : 'block'; ?>; }
         .edit-section { display: <?php echo $mostra_form ? 'block' : 'none'; ?>; }
-        @media (max-width: 768px) { .profile-container { margin: 20px; padding: 20px; } }
+    @media (max-width: 768px) { .profile-container { margin: 20px 20px 80px; padding: 20px; } }
     </style>
 </head>
 <body>
@@ -183,22 +196,22 @@ pg_close($conn);
                 
                 <div class="form-group">
                     <label for="nome"><i class="fas fa-user"></i> Nome *</label>
-                    <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($user_data['nome'] ?? ''); ?>" required>
+                    <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($edit_values['nome'] ?? ''); ?>" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="cognome"><i class="fas fa-user"></i> Cognome *</label>
-                    <input type="text" id="cognome" name="cognome" value="<?php echo htmlspecialchars($user_data['cognome'] ?? ''); ?>" required>
+                    <input type="text" id="cognome" name="cognome" value="<?php echo htmlspecialchars($edit_values['cognome'] ?? ''); ?>" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="telefono"><i class="fas fa-phone"></i> Telefono</label>
-                    <input type="tel" id="telefono" name="telefono" value="<?php echo htmlspecialchars($user_data['telefono'] ?? ''); ?>">
+                    <input type="tel" id="telefono" name="telefono" value="<?php echo htmlspecialchars($edit_values['telefono'] ?? ''); ?>">
                 </div>
                 
                 <div class="form-group">
                     <label for="email"><i class="fas fa-envelope"></i> Email *</label>
-                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user_data['email'] ?? ''); ?>" required>
+                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($edit_values['email'] ?? ''); ?>" required>
                 </div>
                 
                 <!-- La domanda di sicurezza non è modificabile -->

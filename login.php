@@ -3,10 +3,13 @@
 session_start(); // abilita uso di $_SESSION
 
 // Importo la connessione al DB
-require_once __DIR__ . "/includes/config.php"; // contiene $connection_string
+require_once __DIR__ . "/includes/logindb.php"; // contiene $connection_string
 
 // Messaggio di errore (vuoto = nessun errore)
 $errore = "";
+
+// Valore sticky per email (prima POST, poi GET)
+$stickyEmail = htmlspecialchars($_POST['email'] ?? ($_GET['email'] ?? ''), ENT_QUOTES, 'UTF-8');
 
 // Se l'utente ha inviato il form
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -137,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <form id="loginForm" action="login.php" method="POST" class="auth-form" novalidate>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="latuamail@esempio.com" required value="<?= htmlspecialchars($_GET['email'] ?? '') ?>">
+                <input type="email" id="email" name="email" placeholder="latuamail@esempio.com" required value="<?= $stickyEmail ?>">
             </div>
 
             <div class="form-group" style="position: relative;">

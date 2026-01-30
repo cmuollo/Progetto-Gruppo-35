@@ -7,12 +7,23 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipo di carattere */
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #1a1a1a; /* Lo sfondo scuro */
     color: #ffffff;            /* Testo bianco di base */
     display: flex;             /* Usa Flexbox per gestire il layout verticale */
     flex-direction: column;    /* Ordina gli elementi in colonna (Header, Main, Footer) */
+    min-height: 100vh;          /* Forza il footer in fondo alla pagina */
+    padding-bottom: 0;
     overflow-x: hidden;        /* Evita scorrimento orizzontale */
+}
+
+/* I contenuti principali occupano lo spazio residuo per evitare gap sotto il footer */
+main {
+    flex: 1 0 auto;
 }
 
 /* --- STILE DELLA BARRA IN ALTO (HEADER) --- */
@@ -74,6 +85,92 @@ body {
     color: #555;               /* Colore della stanghetta | */
 }
 
+/* --- BANNER UTENTE (ospite/loggato) --- */
+.auth-banner {
+    width: 100%;
+    background: #111;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 40px;
+    border-top: 1px solid #333;
+}
+
+.auth-banner > .banner-content {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.auth-banner .banner-actions a {
+    margin-left: 0;
+    text-transform: uppercase;
+}
+
+.auth-banner .banner-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.auth-banner a,
+.auth-banner strong {
+    color: #d4af37;
+}
+
+.auth-banner a:hover {
+    color: #fff;
+}
+
+.auth-banner--member {
+    background: #0f0f0f;
+}
+
+.auth-banner--bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+}
+
+.home-page {
+    padding-bottom: 80px;
+}
+
+.banner-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #111111;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.banner-btn--ghost {
+    background: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+}
+
+.banner-btn:hover {
+    transform: translateY(-1px);
+    background: #f0c54a;
+}
+
+#guest-message::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin-top: 6px;
+}
+
 /* --- SEZIONE CENTRALE (TITOLO) --- */
 .hero-section {
 
@@ -117,9 +214,11 @@ body {
     color: #ccc;
     /* Padding ridotto per farlo più compatto (prima era 50px) */
     padding-top: 20px;          
+    padding-bottom: 0;
     border-top: 1px solid #333;
     width: 100%;
     font-size: 0.9rem;          /* Font leggermente più piccolo */
+    margin-top: auto;           /* Spinge il footer in fondo */
 }
 
 /* Contenitore delle 4 colonne */
@@ -129,7 +228,7 @@ body {
     flex-wrap: wrap;            /* Va a capo se lo schermo è piccolo */
     max-width: 1200px;
     margin: 0 auto;             /* Centra il blocco */
-    padding-bottom: 10px;       /* Spazio ridotto sotto */
+    padding-bottom: 0;          /* Nessuno spazio sotto il footer */
 }
 
 /* Singola colonna */
