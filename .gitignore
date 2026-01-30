@@ -1,0 +1,29 @@
+# PHP / server
+/vendor/
+node_modules/
+*.log
+*.cache
+
+# IDE / OS
+.vscode/
+.idea/
+*.suo
+*.user
+Thumbs.db
+.DS_Store
+
+# XAMPP / temp
+/tmp/
+
+# Database / dumps
+*.sql
+*.sqlite
+*.sqlite3
+
+# File di config locali (non committare credenziali)
+includes/config.php
+.env
+
+# Backup locali
+*.bak
+*.old
