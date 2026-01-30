@@ -170,16 +170,8 @@ if ($conn) {
                 <div class="item"><span class="swatch" style="background:#f1c40f; padding: 20px; margin-left: 20px;"></span> Parzialmente occupato (nome del barbiere occupato)</div>
                 <div class="item"><span class="swatch" style="background:#e74c3c; padding: 20px; margin-left: 20px;"></span> Occupato</div>
             </div>
-            <div style="display:flex;justify-content:flex-end;margin-top:14px; padding: 20px 20px 20px 20px;">
-                <button id="calendarRefresh" type="button">Refresh</button>
-            </div>
         </div>
     </main>
-
-    <script>
-        const calRefresh = document.getElementById('calendarRefresh');
-        if (calRefresh) calRefresh.addEventListener('click', function(){ window.location.reload(); });
-    </script>
 
 <?php include __DIR__ . "/includes/footer.php"; ?>
 
