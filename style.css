@@ -903,6 +903,18 @@ body {
     font-size: 0.9rem;
 }
 
+.auth-message {
+    margin-bottom: 15px;
+}
+
+.auth-message--error {
+    color: #ff6b6b;
+}
+
+.auth-message--info {
+    color: #d4af37;
+}
+
 /* Stile dei campi del form */
 .form-group {
     margin-bottom: 20px;

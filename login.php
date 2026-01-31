@@ -125,13 +125,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p class="auth-subtitle">Accedi per gestire i tuoi appuntamenti</p>
 
         <?php if ($errore !== ""): ?>
-            <p style="color:#ff6b6b; margin-bottom:15px;"><?= htmlspecialchars($errore) ?></p>
+            <p class="auth-message auth-message--error"><?= htmlspecialchars($errore) ?></p>
         <?php endif; ?>
         <?php if (!empty($_GET['profile_updated'])): ?>
-            <p style="color:#d4af37; margin-bottom:15px;">Profilo aggiornato con successo. Effettua il login con le nuove credenziali.</p>
+            <p class="auth-message auth-message--info">Profilo aggiornato con successo. Effettua il login con le nuove credenziali.</p>
         <?php endif; ?>
         <?php if (!empty($_GET['registered'])): ?>
-            <p style="color:#d4af37; margin-bottom:15px;">Registrazione completata. Inserisci le tue credenziali per accedere.</p>
+            <p class="auth-message auth-message--info">Registrazione completata. Inserisci le tue credenziali per accedere.</p>
         <?php endif; ?>
 
         <form id="loginForm" action="login.php" method="POST" class="auth-form" novalidate>
