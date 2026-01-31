@@ -196,11 +196,27 @@ body {
 
 /* Contenitore generale della pagina */
 .calendar-section {
-    padding: 120px 20px 50px 20px; /* Spazio in alto per l'header fisso */
+    padding: 120px 20px 20px 20px; /* Spazio in alto per l'header fisso */
     flex-grow: 1; /* Occupa lo spazio disponibile */
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-success {
+    color: green;
+    margin-bottom: 10px;
+}
+
+.form-error {
+    color: #b00020;
+    margin-bottom: 10px;
 }
 
 /* Contenitore per lo scroll orizzontale su mobile */
@@ -231,6 +247,29 @@ body {
     overflow-wrap: anywhere;
 }
 
+.calendar-grid {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-grid th,
+.calendar-grid td {
+    border: 1px solid #444;
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.calendar-grid th.time {
+    width: 140px;
+    background: #111;
+    color: #d4af37;
+}
+
+.calendar-grid th.day-header,
+.calendar-grid td {
+    min-width: 140px;
+}
+
 /* Intestazione (Giorni e Orari) */
 .booking-table th {
     background-color: #111; /* Sfondo scuro intestazione */
@@ -244,6 +283,97 @@ body {
     background-color: #333; /* Si illumina leggermente */
     cursor: pointer; /* Cambia cursore in manina */
     color: #d4af37;
+}
+
+.barber-cell {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 6px auto;
+    font-size: 0.85rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Semaforo colors: green = libero, yellow = parzialmente occupato, red = totalmente occupato */
+.free {
+    background: #27ae60;
+    color: #ffffff;
+}
+
+.partial {
+    background: #f1c40f;
+    color: #1e1e1e;
+}
+
+.full {
+    background: #e74c3c;
+    color: #ffffff;
+}
+
+.calendar-grid .closed-day {
+    background: #efefef;
+    color: #666;
+    text-align: center;
+}
+
+.day-header {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.day-header .day-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.day-header .day-date {
+    display: block;
+    font-size: 0.8rem;
+    color: #d0cfcf;
+}
+
+.legend {
+    margin-top: 10px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.legend .item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 600;
+    color: #333;
+}
+
+.legend .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.legend .swatch--free {
+    background: #27ae60;
+}
+
+.legend .swatch--partial {
+    background: #f1c40f;
+}
+
+.legend .swatch--full {
+    background: #e74c3c;
 }
 
 /* GIORNI DI CHIUSURA (Rosso) */

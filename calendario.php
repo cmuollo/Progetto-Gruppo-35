@@ -7,29 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpeg" href="multimedia/barbiere.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-    .calendar-section { padding: 120px 20px 20px 20px; }
-    .calendar-grid { width: 100%; border-collapse: collapse; }
-    .calendar-grid th, .calendar-grid td { border: 1px solid #444; padding: 12px; vertical-align: middle; }
-    .calendar-grid th.time { width: 140px; background:#111; color:#d4af37; }
-    .calendar-grid th.day-header, .calendar-grid td { min-width: 140px; }
-    .slot { display: flex; gap:6px; }
-    /* compact square indicator for availability */
-    .barber-cell { width:36px; height:36px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; margin:6px auto; font-size:0.85rem; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    /* partial (yellow) as compact square like others; tooltip contains barber name */
-    .barber-cell.partial { width:36px; height:36px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; margin:6px auto; }
-    /* Semaforo colors: green = libero, yellow = parzialmente occupato, red = totalmente occupato */
-    .free { background:#27ae60; color:#ffffff; }
-    .partial { background:#f1c40f; color:#1e1e1e; }
-    .full { background:#e74c3c; color:#ffffff; }
-    .closed-day { background:#efefef; color:#666; text-align:center; }
-    .day-header { font-weight:600; font-size:0.8rem; text-align:center; }
-    .day-header .day-name { display:block; font-weight:700; font-size:0.9rem; }
-    .day-header .day-date { display:block; font-size:0.8rem; color:#d0cfcf; }
-    .legend { margin-top:10px; display:flex; gap:18px; align-items:center; }
-    .legend .item { display:flex; gap:8px; align-items:center; font-weight:600; color:#333; }
-    .legend .swatch { width:14px; height:14px; border-radius:50%; display:inline-block; }
-    </style>
 </head>
 <body>
 
@@ -44,7 +21,7 @@ if (!$conn) {
 
 $currentIsBarber = isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin";
 
-// Build days: from today up to +14 days, but include only Tue-Sat (exclude Mon & Sun)
+// costruiamo l'elenco dei giorni utili (solo giorni feriali: martedì-sabato) per le prossime due settimane
 $days = [];
 $start = new DateTimeImmutable('today');
 $endLimit = $start->modify('+14 days');
@@ -68,7 +45,7 @@ while ($t <= $end) {
 
 $bookings = [];
 if ($conn) {
-    // safe start/end 
+    // inseriremo gli appuntamenti esistenti in questa struttura: $bookings[date][time][barber] = record
     if (count($days) === 0) {
         $startDate = $start->format('Y-m-d');
         $endDate = $endLimit->format('Y-m-d');
@@ -90,14 +67,14 @@ if ($conn) {
 ?>
 
     <main class="calendar-section">
-        <div style="display:flex;align-items:center;gap:12px;">
+        <div class="calendar-header">
             <h1 class="section-title">Calendario Appuntamenti</h1>
         </div>
         <?php if (!empty($_GET['msg'])): ?>
-            <div class="form-success" style="color:green; margin-bottom:10px;"><?= htmlspecialchars($_GET['msg']) ?></div>
+            <div class="form-success"><?= htmlspecialchars($_GET['msg']) ?></div>
         <?php endif; ?>
         <?php if (!empty($dbError)): ?>
-            <div class="form-error" style="color:#b00020; margin-bottom:10px;"><?= htmlspecialchars($dbError) ?></div>
+            <div class="form-error"><?= htmlspecialchars($dbError) ?></div>
         <?php endif; ?>
 
     <div class="table-container">
@@ -166,9 +143,9 @@ if ($conn) {
                 </tbody>
             </table>
             <div class="legend">
-                <div class="item"><span class="swatch" style="background:#27ae60; padding: 20px; margin-left: 20px;"></span> Libero</div>
-                <div class="item"><span class="swatch" style="background:#f1c40f; padding: 20px; margin-left: 20px;"></span> Parzialmente occupato (nome del barbiere occupato)</div>
-                <div class="item"><span class="swatch" style="background:#e74c3c; padding: 20px; margin-left: 20px;"></span> Occupato</div>
+                <div class="item"><span class="swatch swatch--free"></span> Libero</div>
+                <div class="item"><span class="swatch swatch--partial"></span> Parzialmente occupato (nome del barbiere occupato)</div>
+                <div class="item"><span class="swatch swatch--full"></span> Occupato</div>
             </div>
     </div>
     </main>
