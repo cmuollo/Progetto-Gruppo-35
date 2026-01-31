@@ -9,9 +9,12 @@ $prefill_orario = isset($_GET['orario']) ? trim($_GET['orario']) : '';
 if (!isset($_SESSION["user_id"])) {
     $next = 'prenota.php';
     $qs = [];
-    if ($prefill_date !== '') $qs[] = 'data=' . rawurlencode($prefill_date);
-    if ($prefill_orario !== '') $qs[] = 'orario=' . rawurlencode($prefill_orario);
-    if (count($qs) > 0) $next .= '?' . implode('&', $qs);
+    if ($prefill_date !== '')
+        $qs[] = 'data=' . rawurlencode($prefill_date);
+    if ($prefill_orario !== '')
+        $qs[] = 'orario=' . rawurlencode($prefill_orario);
+    if (count($qs) > 0)
+        $next .= '?' . implode('&', $qs);
     header('Location: login.php?next=' . rawurlencode($next));
     exit;
 }
@@ -29,8 +32,9 @@ if (isset($_GET['availability_date'])) {
     $map = [];
     if ($res) {
         while ($r = pg_fetch_assoc($res)) {
-            $ora = substr($r['ora_appuntamento'],0,8);
-            if (!isset($map[$ora])) $map[$ora] = [];
+            $ora = substr($r['ora_appuntamento'], 0, 8);
+            if (!isset($map[$ora]))
+                $map[$ora] = [];
             $map[$ora][] = $r['barber'];
         }
     }
@@ -51,9 +55,9 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
     $orario = $_GET['orario'] ?? '';
     $userId = intval($_SESSION['user_id']);
     $res1 = pg_query_params($conn, 'SELECT COUNT(*) AS c FROM appuntamenti WHERE id_utente=$1 AND data_appuntamento=$2 AND ora_appuntamento=$3', array($userId, $date, $orario));
-    $sameSlot = ($res1 ? intval(pg_fetch_result($res1,0,'c')) : 0) > 0;
+    $sameSlot = ($res1 ? intval(pg_fetch_result($res1, 0, 'c')) : 0) > 0;
     $res2 = pg_query_params($conn, 'SELECT COUNT(*) AS c FROM appuntamenti WHERE id_utente=$1 AND data_appuntamento=$2', array($userId, $date));
-    $sameDay = ($res2 ? intval(pg_fetch_result($res2,0,'c')) : 0) > 0;
+    $sameDay = ($res2 ? intval(pg_fetch_result($res2, 0, 'c')) : 0) > 0;
     header('Content-Type: application/json');
     echo json_encode(['sameSlot' => $sameSlot, 'sameDay' => $sameDay]);
     pg_close($conn);
@@ -63,17 +67,19 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prenota Appuntamento - La Bottega del Barbiere</title>
-    
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpeg" href="multimedia/barbiere.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>   
-    
+
+<body>
+
     <?php
     include __DIR__ . "/includes/header.php";
     if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
@@ -93,12 +99,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                 if ($resOwner && pg_num_rows($resOwner) > 0) {
                     $rowB = pg_fetch_assoc($resOwner);
                     $owner = intval($rowB['id_utente']);
-                    $isAdmin = false;
-                    if (isset($_SESSION['user_id'])) {
-                        $r = pg_query_params($conn, 'SELECT ruolo FROM utenti WHERE id=$1', array(intval($_SESSION['user_id'])));
-                        if ($r && pg_num_rows($r)>0) $isAdmin = (pg_fetch_result($r,0,'ruolo') === 'admin');
-                    }
-                    if ($owner === intval($_SESSION['user_id']) || $isAdmin) {
+                    if ($owner === intval($_SESSION['user_id'])) {
                         $insSql = 'INSERT INTO cancellazioni (booking_id, id_utente, cancelled_by, reason, data_appuntamento, ora_appuntamento, barber, note) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id';
                         $cancelRes = pg_prepare($conn, 'ins_cancel', $insSql);
                         $cancelExec = pg_execute($conn, 'ins_cancel', array($booking_id, $owner, intval($_SESSION['user_id']), $reason, $rowB['data_appuntamento'], $rowB['ora_appuntamento'], $rowB['barber'], $rowB['note']));
@@ -107,20 +108,15 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                             $cancel_id = intval(pg_fetch_result($cancelExec, 0, 'id'));
                         }
                         $del = pg_query_params($conn, 'DELETE FROM appuntamenti WHERE id=$1', array($booking_id));
-                            if ($del) {
-                                pg_close($conn);
-                                if ($cancel_id) {
-                                    if ($isAdmin) {
-                                        header('Location: clienti.php?show_cancel_id=' . urlencode($cancel_id) . '&msg=' . urlencode('Prenotazione annullata'));
-                                    } else {
-                                        header('Location: prenota.php?msg=' . urlencode('Prenotazione annullata') . '&cancel_id=' . urlencode($cancel_id));
-                                    }
-                                } else {
-                                    if ($isAdmin) header('Location: clienti.php?msg=' . urlencode('Prenotazione annullata'));
-                                    else header('Location: prenota.php?msg=' . urlencode('Prenotazione annullata'));
-                                }
-                                exit;
+                        if ($del) {
+                            pg_close($conn);
+                            if ($cancel_id) {
+                                header('Location: prenota.php?msg=' . urlencode('Prenotazione annullata') . '&cancel_id=' . urlencode($cancel_id));
                             } else {
+                                header('Location: prenota.php?msg=' . urlencode('Prenotazione annullata'));
+                            }
+                            exit;
+                        } else {
                             $error = 'Errore durante l\'annullamento.';
                         }
                     } else {
@@ -185,7 +181,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                                         while ($r = pg_fetch_assoc($checkBoth)) {
                                             $occupied[] = $r['barber'];
                                         }
-                                        $allBarbers = ['Simone','Massimo'];
+                                        $allBarbers = ['Simone', 'Massimo'];
                                         $free = array_values(array_diff($allBarbers, $occupied));
                                         if (count($free) === 0) {
                                             $error = "La fascia è completamente prenotata.";
@@ -196,24 +192,24 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
 
                                     if (!isset($error)) {
                                         $resUserSlot = pg_query_params($conn, 'SELECT COUNT(*) AS c FROM appuntamenti WHERE id_utente=$1 AND data_appuntamento=$2 AND ora_appuntamento=$3', array($user_id, $data, $orario));
-                                        $userHasSlot = ($resUserSlot ? intval(pg_fetch_result($resUserSlot,0,'c')) : 0) > 0;
+                                        $userHasSlot = ($resUserSlot ? intval(pg_fetch_result($resUserSlot, 0, 'c')) : 0) > 0;
                                         if ($userHasSlot) {
                                             $error = 'Hai già una prenotazione nella stessa fascia oraria.';
                                         }
                                         $resUserDay = pg_query_params($conn, 'SELECT COUNT(*) AS c FROM appuntamenti WHERE id_utente=$1 AND data_appuntamento=$2', array($user_id, $data));
-                                        $userHasDay = ($resUserDay ? intval(pg_fetch_result($resUserDay,0,'c')) : 0) > 0;
+                                        $userHasDay = ($resUserDay ? intval(pg_fetch_result($resUserDay, 0, 'c')) : 0) > 0;
                                         if ($userHasDay) {
                                             $error = 'Hai già una prenotazione per questo giorno.';
                                         }
 
                                         if (!isset($error)) {
                                             $servizio_id = intval($servizio);
-                                            $insert = pg_query_params($conn,"INSERT INTO appuntamenti (id_utente, id_servizio, data_appuntamento, ora_appuntamento, barber, note) VALUES ($1,$2,$3,$4,$5,$6)", array($user_id, $servizio_id, $data, $orario, $barber, $note));
+                                            $insert = pg_query_params($conn, "INSERT INTO appuntamenti (id_utente, id_servizio, data_appuntamento, ora_appuntamento, barber, note) VALUES ($1,$2,$3,$4,$5,$6)", array($user_id, $servizio_id, $data, $orario, $barber, $note));
                                             if ($insert) {
                                                 pg_close($conn);
                                                 $dlabel = (DateTime::createFromFormat('Y-m-d', $data) ?: null);
                                                 $dateLabel = $dlabel ? $dlabel->format('d/m/Y') : $data;
-                                                header('Location: prenota.php?msg=' . urlencode('Prenotazione confermata per ' . $dateLabel . ' ' . substr($orario,0,5) . ' - Barbiere: ' . $barber));
+                                                header('Location: prenota.php?msg=' . urlencode('Prenotazione confermata per ' . $dateLabel . ' ' . substr($orario, 0, 5) . ' - Barbiere: ' . $barber));
                                                 exit;
                                             } else {
                                                 $db_err = pg_last_error($conn);
@@ -245,8 +241,8 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                     <div class="form-error"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>
                 <?php if (!empty($_GET['msg'])): ?>
-                        <div class="form-success"><?= htmlspecialchars($_GET['msg']) ?></div>
-                    <?php endif; ?>
+                    <div class="form-success"><?= htmlspecialchars($_GET['msg']) ?></div>
+                <?php endif; ?>
 
                 <?php
                 $userUpcoming = [];
@@ -274,15 +270,19 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                                     <div class="booking-item">
                                         <div>
                                             <div class="booking-meta">
-                                                <strong><?= htmlspecialchars($ud ? $ud->format('d/m/Y') : $b['data_appuntamento']) ?> <?= substr(htmlspecialchars($b['ora_appuntamento']),0,5) ?></strong>
+                                                <strong><?= htmlspecialchars($ud ? $ud->format('d/m/Y') : $b['data_appuntamento']) ?>
+                                                    <?= substr(htmlspecialchars($b['ora_appuntamento']), 0, 5) ?></strong>
                                                 &nbsp;•&nbsp; <span>Barbiere: <?= htmlspecialchars($b['barber']) ?></span>
                                             </div>
                                             <?php if (!empty($b['note'])): ?>
-                                                <div class="booking-note booking-note--spaced">Note: <?= htmlspecialchars($b['note']) ?></div>
+                                                <div class="booking-note booking-note--spaced">Note:
+                                                    <?= htmlspecialchars($b['note']) ?></div>
                                             <?php endif; ?>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn-cancel" data-booking-id="<?= intval($b['id']) ?>"><i class="fas fa-trash"></i> Annulla</button>
+                                            <button type="button" class="btn-cancel"
+                                                data-booking-id="<?= intval($b['id']) ?>"><i class="fas fa-trash"></i>
+                                                Annulla</button>
                                         </div>
                                     </div>
                                 </li>
@@ -290,7 +290,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                         </ul>
                     </div>
                 <?php endif; ?>
-                
+
                 <div class="form-group">
                     <label for="servizio"><i class="fas fa-cut"></i> Servizio</label>
                     <select id="servizio" name="servizio" required>
@@ -312,24 +312,26 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="data"><i class="far fa-calendar-alt"></i> Data</label>
-                        <input type="date" id="data" name="data" required value="<?php echo htmlspecialchars($prefill_date); ?>">
+                        <input type="date" id="data" name="data" required
+                            value="<?php echo htmlspecialchars($prefill_date); ?>">
                     </div>
                     <div class="form-group">
                         <label for="orario"><i class="far fa-clock"></i> Ora</label>
                         <select id="orario" name="orario" required>
                             <option value="" disabled selected>-- Seleziona un orario --</option>
                             <?php
-                                $t = new DateTime('08:30');
-                                $end = new DateTime('19:45');
-                                while ($t <= $end) {
-                                    $labelStart = $t->format('G.i');
-                                    $tEnd = clone $t; $tEnd->modify('+45 minutes');
-                                    $labelEnd = $tEnd->format('G.i');
-                                    $value = $t->format('H:i:s');
-                                    $sel = ($prefill_orario === $value) ? ' selected' : '';
-                                    echo "<option value=\"$value\"$sel>$labelStart - $labelEnd</option>\n";
-                                    $t->modify('+45 minutes');
-                                }
+                            $t = new DateTime('08:30');
+                            $end = new DateTime('19:45');
+                            while ($t <= $end) {
+                                $labelStart = $t->format('G.i');
+                                $tEnd = clone $t;
+                                $tEnd->modify('+45 minutes');
+                                $labelEnd = $tEnd->format('G.i');
+                                $value = $t->format('H:i:s');
+                                $sel = ($prefill_orario === $value) ? ' selected' : '';
+                                echo "<option value=\"$value\"$sel>$labelStart - $labelEnd</option>\n";
+                                $t->modify('+45 minutes');
+                            }
                             ?>
                         </select>
                         <small class="booking-hint">Aperti dalle 8.30 alle 20:30</small>
@@ -338,7 +340,8 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
 
                 <div class="form-group">
                     <label for="note"><i class="fas fa-comment"></i> Note aggiuntive (facoltativo)</label>
-                    <textarea id="note" name="note" rows="3" placeholder="Hai richieste particolari? Scrivile qui..."></textarea>
+                    <textarea id="note" name="note" rows="3"
+                        placeholder="Hai richieste particolari? Scrivile qui..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Conferma Prenotazione</button>
@@ -350,7 +353,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
     </main>
 
     <script>
-        (function(){
+        (function () {
             const dateInput = document.getElementById('data');
             const orarioSelect = document.getElementById('orario');
             if (!dateInput || !orarioSelect) return;
@@ -366,7 +369,7 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                 if (!opt.dataset.baseLabel) opt.dataset.baseLabel = opt.text;
             }
 
-            dateInput.addEventListener('change', async function(){
+            dateInput.addEventListener('change', async function () {
                 resetOptions();
                 const d = this.value;
                 if (!d) return;
@@ -391,110 +394,110 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
             });
 
             <?php if ($prefill_date !== ''): ?>
-            (async function(){
-                try { dateInput.dispatchEvent(new Event('change')); } catch(e) { }
-            })();
+                    (async function () {
+                        try { dateInput.dispatchEvent(new Event('change')); } catch (e) { }
+                    })();
             <?php endif; ?>
         })();
     </script>
 
     <script>
-    (function(){
-        const form = document.querySelector('form.booking-form');
-        const dateInput = document.getElementById('data');
-        const orarioSelect = document.getElementById('orario');
+        (function () {
+            const form = document.querySelector('form.booking-form');
+            const dateInput = document.getElementById('data');
+            const orarioSelect = document.getElementById('orario');
 
-        if (form && dateInput && orarioSelect) {
-            let bookingSubmitting = false;
+            if (form && dateInput && orarioSelect) {
+                let bookingSubmitting = false;
 
-            form.addEventListener('submit', async function (e) {
-                if (bookingSubmitting) return;
+                form.addEventListener('submit', async function (e) {
+                    if (bookingSubmitting) return;
 
-                e.preventDefault();
+                    e.preventDefault();
 
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
-                }
-
-                const d = dateInput.value;
-                const o = orarioSelect.value;
-                if (!d || !o) {
-                    form.reportValidity();
-                    return;
-                }
-
-                try {
-                    const resp = await fetch(
-                        window.location.pathname + '?check_user=1&date=' + encodeURIComponent(d) + '&orario=' + encodeURIComponent(o),
-                        { credentials: 'same-origin' }
-                    );
-
-                    if (resp.ok) {
-                        const json = await resp.json();
-
-                        if (json.sameSlot) {
-                            alert('Hai già una prenotazione nella stessa fascia oraria.');
-                            return;
-                        }
-                        if (json.sameDay) {
-                            alert('Hai già una prenotazione per questo giorno: è consentita una sola prenotazione al giorno.');
-                            return;
-                        }
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        return;
                     }
 
-                    const availResp = await fetch(
-                        window.location.pathname + '?availability_date=' + encodeURIComponent(d),
-                        { credentials: 'same-origin' }
-                    );
-
-                    if (availResp.ok) {
-                        const map = await availResp.json();
-                        const arr = map[o] || [];
-
-                        if (Array.isArray(arr) && arr.length >= 2) {
-                            alert('La fascia è ora completamente occupata. Aggiorna e scegli un altro orario.');
-                            try { dateInput.dispatchEvent(new Event('change')); } catch (e) {}
-                            return;
-                        }
-
-                        const selectedBarber = document.getElementById('barbiere')?.value || '';
-                        if (selectedBarber && Array.isArray(arr) && arr.includes(selectedBarber)) {
-                            alert('Il barbiere selezionato non è più disponibile in questa fascia. Aggiorna e scegli un altro barbiere oppure lascia che venga assegnato automaticamente.');
-                            try { dateInput.dispatchEvent(new Event('change')); } catch (e) {}
-                            return;
-                        }
+                    const d = dateInput.value;
+                    const o = orarioSelect.value;
+                    if (!d || !o) {
+                        form.reportValidity();
+                        return;
                     }
 
-                } catch (err) {
-                    console.error('Errore check_user/availability', err);
-                }
+                    try {
+                        const resp = await fetch(
+                            window.location.pathname + '?check_user=1&date=' + encodeURIComponent(d) + '&orario=' + encodeURIComponent(o),
+                            { credentials: 'same-origin' }
+                        );
 
-                bookingSubmitting = true;
-                const btn = form.querySelector('button[type="submit"]');
-                if (btn) btn.disabled = true;
-                form.submit();
-            });
+                        if (resp.ok) {
+                            const json = await resp.json();
 
-        }
+                            if (json.sameSlot) {
+                                alert('Hai già una prenotazione nella stessa fascia oraria.');
+                                return;
+                            }
+                            if (json.sameDay) {
+                                alert('Hai già una prenotazione per questo giorno: è consentita una sola prenotazione al giorno.');
+                                return;
+                            }
+                        }
 
-        const refreshBtn = document.getElementById('refreshBtn');
-        if (refreshBtn && dateInput) {
-            refreshBtn.addEventListener('click', function(){
-                if (dateInput.value) {
-                    try { dateInput.dispatchEvent(new Event('change')); } catch(e) {}
-                    setTimeout(function(){ window.location.reload(); }, 300);
-                } else {
-                    window.location.reload();
-                }
-            });
-        }
+                        const availResp = await fetch(
+                            window.location.pathname + '?availability_date=' + encodeURIComponent(d),
+                            { credentials: 'same-origin' }
+                        );
 
-        (function(){
-            const cancelModal = document.createElement('div');
-            cancelModal.className = 'modal-overlay';
-            cancelModal.id = 'cancelModal';
-            cancelModal.innerHTML = `
+                        if (availResp.ok) {
+                            const map = await availResp.json();
+                            const arr = map[o] || [];
+
+                            if (Array.isArray(arr) && arr.length >= 2) {
+                                alert('La fascia è ora completamente occupata. Aggiorna e scegli un altro orario.');
+                                try { dateInput.dispatchEvent(new Event('change')); } catch (e) { }
+                                return;
+                            }
+
+                            const selectedBarber = document.getElementById('barbiere')?.value || '';
+                            if (selectedBarber && Array.isArray(arr) && arr.includes(selectedBarber)) {
+                                alert('Il barbiere selezionato non è più disponibile in questa fascia. Aggiorna e scegli un altro barbiere oppure lascia che venga assegnato automaticamente.');
+                                try { dateInput.dispatchEvent(new Event('change')); } catch (e) { }
+                                return;
+                            }
+                        }
+
+                    } catch (err) {
+                        console.error('Errore check_user/availability', err);
+                    }
+
+                    bookingSubmitting = true;
+                    const btn = form.querySelector('button[type="submit"]');
+                    if (btn) btn.disabled = true;
+                    form.submit();
+                });
+
+            }
+
+            const refreshBtn = document.getElementById('refreshBtn');
+            if (refreshBtn && dateInput) {
+                refreshBtn.addEventListener('click', function () {
+                    if (dateInput.value) {
+                        try { dateInput.dispatchEvent(new Event('change')); } catch (e) { }
+                        setTimeout(function () { window.location.reload(); }, 300);
+                    } else {
+                        window.location.reload();
+                    }
+                });
+            }
+
+            (function () {
+                const cancelModal = document.createElement('div');
+                cancelModal.className = 'modal-overlay';
+                cancelModal.id = 'cancelModal';
+                cancelModal.innerHTML = `
                 <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cancelModalTitle">
                     <h3 id="cancelModalTitle">Sei sicuro di voler annullare la prenotazione?</h3>
                     <p>Ci dispiace. Se vuoi, scrivici il motivo (opzionale):</p>
@@ -504,45 +507,46 @@ if (isset($_GET['check_user']) && isset($_SESSION['user_id'])) {
                         <button type="button" class="btn-cancel-confirm" id="cancelModalConfirm">Conferma cancellazione</button>
                     </div>
                 </div>`;
-            document.body.appendChild(cancelModal);
+                document.body.appendChild(cancelModal);
 
-            let cancelTargetId = null;
+                let cancelTargetId = null;
 
-            document.addEventListener('click', function(ev){
-                const btn = ev.target.closest && ev.target.closest('.btn-cancel');
-                if (!btn) return;
-                const id = btn.getAttribute('data-booking-id');
-                if (!id) return;
-                cancelTargetId = id;
-                document.getElementById('cancelReason').value = '';
-                cancelModal.style.display = 'flex';
-                setTimeout(()=> document.getElementById('cancelReason').focus(), 120);
-            });
+                document.addEventListener('click', function (ev) {
+                    const btn = ev.target.closest && ev.target.closest('.btn-cancel');
+                    if (!btn) return;
+                    const id = btn.getAttribute('data-booking-id');
+                    if (!id) return;
+                    cancelTargetId = id;
+                    document.getElementById('cancelReason').value = '';
+                    cancelModal.style.display = 'flex';
+                    setTimeout(() => document.getElementById('cancelReason').focus(), 120);
+                });
 
-            cancelModal.addEventListener('click', function(e){
-                if (e.target === cancelModal) { cancelModal.style.display = 'none'; cancelTargetId = null; }
-            });
-            document.addEventListener('click', function(e){
-                if (e.target && e.target.id === 'cancelModalClose') { cancelModal.style.display = 'none'; cancelTargetId = null; }
-            });
+                cancelModal.addEventListener('click', function (e) {
+                    if (e.target === cancelModal) { cancelModal.style.display = 'none'; cancelTargetId = null; }
+                });
+                document.addEventListener('click', function (e) {
+                    if (e.target && e.target.id === 'cancelModalClose') { cancelModal.style.display = 'none'; cancelTargetId = null; }
+                });
 
-            document.addEventListener('click', function(e){
-                if (e.target && e.target.id === 'cancelModalConfirm') {
-                    const reason = document.getElementById('cancelReason').value || '';
-                    const f = document.createElement('form'); f.method = 'POST'; f.style.display = 'none';
-                    const i1 = document.createElement('input'); i1.name = 'cancel_booking'; i1.value = '1';
-                    const i2 = document.createElement('input'); i2.name = 'booking_id'; i2.value = cancelTargetId || '';
-                    const i3 = document.createElement('input'); i3.name = 'reason'; i3.value = reason;
-                    f.appendChild(i1); f.appendChild(i2); f.appendChild(i3);
-                    document.body.appendChild(f);
-                    f.submit();
-                }
-            });
+                document.addEventListener('click', function (e) {
+                    if (e.target && e.target.id === 'cancelModalConfirm') {
+                        const reason = document.getElementById('cancelReason').value || '';
+                        const f = document.createElement('form'); f.method = 'POST'; f.style.display = 'none';
+                        const i1 = document.createElement('input'); i1.name = 'cancel_booking'; i1.value = '1';
+                        const i2 = document.createElement('input'); i2.name = 'booking_id'; i2.value = cancelTargetId || '';
+                        const i3 = document.createElement('input'); i3.name = 'reason'; i3.value = reason;
+                        f.appendChild(i1); f.appendChild(i2); f.appendChild(i3);
+                        document.body.appendChild(f);
+                        f.submit();
+                    }
+                });
+            })();
         })();
-    })();
     </script>
 
     <?php include __DIR__ . "/includes/footer.php"; ?>
 
 </body>
+
 </html>
