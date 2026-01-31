@@ -96,28 +96,7 @@
 
     <?php include __DIR__ . "/includes/footer.php"; ?>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-    // Coordinate Pagani (SA)
-    var lat = 40.742556;
-    var lon = 14.625962;
-
-    // crea la mappa solo dopo che il DOM è pronto per evitare problemi con contenitori nascosti
-    document.addEventListener('DOMContentLoaded', function(){
-        var map = L.map('map', {
-            scrollWheelZoom: false
-        }).setView([lat, lon], 16);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-
-        var marker = L.marker([lat, lon]).addTo(map);
-        marker.bindPopup("<b>La Bottega del Barbiere</b><br>Via Salerno 24, Pagani (SA)").openPopup();
-    });
-    
-</script>
+    <script src="js/chi-siamo.js" defer></script>
 
 </body>
 </html>

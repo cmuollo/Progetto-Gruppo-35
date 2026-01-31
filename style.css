@@ -13,7 +13,9 @@ body {
   color: #ffffff; /* Testo bianco di base */
   display: flex; /* Usa Flexbox per gestire il layout verticale */
   flex-direction: column; /* Ordina gli elementi in colonna (Header, Main, Footer) */
+  min-height: 100vh; /* Assicura altezza minima per spingere il footer */
   overflow-x: hidden; /* Evita scorrimento orizzontale */
+  margin: 0;
 }
 
 /* --- STILE DELLA BARRA IN ALTO (HEADER) --- */
@@ -130,11 +132,12 @@ body {
 .main-footer {
   background-color: #111;
   color: #ccc;
-  /* Padding ridotto per farlo più compatto (prima era 50px) */
+  flex: 1; /* Occupa lo spazio rimanente */
   padding-top: 20px;
   border-top: 1px solid #333;
   width: 100%;
   font-size: 0.9rem; /* Font leggermente più piccolo */
+  margin-top: auto; /* Spinge il footer in fondo alla pagina */
 }
 
 /* Contenitore delle 4 colonne */
@@ -1050,7 +1053,7 @@ body {
 }
 
 /* =========================================
-   PAGINA PRENOTA (prenota.html)
+   PAGINA PRENOTA (prenota.php)
    ========================================= */
 
 .booking-section {
@@ -1317,9 +1320,18 @@ body {
   display: none;
 }
 
+.strength-container {
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
 .strength-bar {
   height: 8px;
   width: 0%;
+  display: block;
   border-radius: 4px;
   transition:
     width 0.28s ease,

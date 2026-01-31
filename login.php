@@ -149,7 +149,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Inserisci la password" required>
+                    <div class="input-with-toggle">
+                        <input type="password" id="password" name="password" placeholder="Inserisci la password" required>
+                        <i class="fas fa-eye toggle-password" id="toggleLoginPassword" role="button" tabindex="0"
+                            aria-label="Mostra o nascondi password"></i>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit">Accedi</button>
@@ -162,6 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </main>
 
+    <script src="js/login.js" defer></script>
 </body>
 
 </html>
