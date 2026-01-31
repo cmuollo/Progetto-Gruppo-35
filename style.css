@@ -132,7 +132,6 @@ body {
 .main-footer {
   background-color: #111;
   color: #ccc;
-  flex: 1; /* Occupa lo spazio rimanente */
   padding-top: 20px;
   border-top: 1px solid #333;
   width: 100%;
@@ -421,6 +420,7 @@ body {
   background: transparent;
   color: inherit;
   border-radius: 12px;
+  flex: 1 0 auto;
 }
 
 .page-title {
@@ -490,6 +490,7 @@ body {
 
 .card-sub {
   padding: 28px 24px;
+  width: 100%;
 }
 
 .card-sub__header {
@@ -1245,6 +1246,14 @@ body {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .profile-title {

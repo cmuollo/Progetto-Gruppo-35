@@ -148,87 +148,88 @@ pg_close($conn);
 <body>
     <?php include __DIR__ . '/includes/header.php'; ?>
 
-    <main>
+    <main class="profile-page">
         <div class="profile-container">
             <h1 class="profile-title"><i class="fas fa-user-edit"></i> Profilo Utente</h1>
 
-        <?php echo $messaggio; ?>
+            <?php echo $messaggio; ?>
 
-        <!-- SEZIONE PASSWORD -->
-        <div class="password-section <?= $mostra_form ? 'profile-section--hidden' : 'profile-section--visible' ?>">
-            <div class="profile-password-intro">
-                <i class="fas fa-lock profile-password-icon"></i>
-                <p class="profile-password-text">Inserisci password per modificare dati</p>
+            <!-- SEZIONE PASSWORD -->
+            <div class="password-section <?= $mostra_form ? 'profile-section--hidden' : 'profile-section--visible' ?>">
+                <div class="profile-password-intro">
+                    <i class="fas fa-lock profile-password-icon"></i>
+                    <p class="profile-password-text">Inserisci password per modificare dati</p>
+                </div>
+
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-key"></i> Password attuale</label>
+                        <div class="input-with-toggle">
+                            <input type="password" id="password" name="password" required placeholder="Password..."
+                                autocomplete="current-password">
+                            <i class="fas fa-eye toggle-password" id="toggleVerifyPassword" role="button" tabindex="0"
+                                aria-label="Mostra o nascondi password"></i>
+                        </div>
+                    </div>
+                    <button type="submit" name="verifica_password" class="profile-btn profile-btn-primary">
+                        <i class="fas fa-eye"></i> Verifica e Modifica
+                    </button>
+                </form>
+                <p class="profile-forgot"><a href="password_dimenticata.php">Hai dimenticato la password?</a></p>
             </div>
 
-            <form method="POST">
-                <div class="form-group">
-                    <label for="password"><i class="fas fa-key"></i> Password attuale</label>
-                    <div class="input-with-toggle">
-                        <input type="password" id="password" name="password" required placeholder="Password..."
-                            autocomplete="current-password">
-                        <i class="fas fa-eye toggle-password" id="toggleVerifyPassword" role="button" tabindex="0"
-                            aria-label="Mostra o nascondi password"></i>
+            <!-- SEZIONE MODIFICA DATI -->
+            <div class="edit-section <?= $mostra_form ? 'profile-section--visible' : 'profile-section--hidden' ?>">
+                <form method="POST">
+                    <input type="hidden" name="aggiorna_dati" value="1">
+
+                    <div class="form-group">
+                        <label for="nome"><i class="fas fa-user"></i> Nome *</label>
+                        <input type="text" id="nome" name="nome"
+                            value="<?php echo htmlspecialchars($edit_values['nome'] ?? ''); ?>" required>
                     </div>
-                </div>
-                <button type="submit" name="verifica_password" class="profile-btn profile-btn-primary">
-                    <i class="fas fa-eye"></i> Verifica e Modifica
-                </button>
-            </form>
-            <p class="profile-forgot"><a href="password_dimenticata.php">Hai dimenticato la password?</a></p>
-        </div>
 
-        <!-- SEZIONE MODIFICA DATI -->
-        <div class="edit-section <?= $mostra_form ? 'profile-section--visible' : 'profile-section--hidden' ?>">
-            <form method="POST">
-                <input type="hidden" name="aggiorna_dati" value="1">
-
-                <div class="form-group">
-                    <label for="nome"><i class="fas fa-user"></i> Nome *</label>
-                    <input type="text" id="nome" name="nome"
-                        value="<?php echo htmlspecialchars($edit_values['nome'] ?? ''); ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="cognome"><i class="fas fa-user"></i> Cognome *</label>
-                    <input type="text" id="cognome" name="cognome"
-                        value="<?php echo htmlspecialchars($edit_values['cognome'] ?? ''); ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="telefono"><i class="fas fa-phone"></i> Telefono</label>
-                    <input type="tel" id="telefono" name="telefono"
-                        value="<?php echo htmlspecialchars($edit_values['telefono'] ?? ''); ?>">
-                </div>
-
-                <div class="form-group">
-                    <label for="email"><i class="fas fa-envelope"></i> Email *</label>
-                    <input type="email" id="email" name="email"
-                        value="<?php echo htmlspecialchars($edit_values['email'] ?? ''); ?>" required>
-                </div>
-
-                <!-- La domanda di sicurezza non è modificabile -->
-
-                <div class="form-group">
-                    <label for="current_password"><i class="fas fa-key"></i> Password attuale *</label>
-                    <div class="input-with-toggle">
-                        <input type="password" id="current_password" name="current_password" required
-                            placeholder="Password..." autocomplete="current-password">
-                        <i class="fas fa-eye toggle-password" id="toggleCurrentPassword" role="button" tabindex="0"
-                            aria-label="Mostra o nascondi password"></i>
+                    <div class="form-group">
+                        <label for="cognome"><i class="fas fa-user"></i> Cognome *</label>
+                        <input type="text" id="cognome" name="cognome"
+                            value="<?php echo htmlspecialchars($edit_values['cognome'] ?? ''); ?>" required>
                     </div>
-                </div>
 
-                <button type="submit" class="profile-btn profile-btn-primary">
-                    <i class="fas fa-save"></i> Aggiorna Profilo
-                </button>
-            </form>
+                    <div class="form-group">
+                        <label for="telefono"><i class="fas fa-phone"></i> Telefono</label>
+                        <input type="tel" id="telefono" name="telefono"
+                            value="<?php echo htmlspecialchars($edit_values['telefono'] ?? ''); ?>">
+                    </div>
 
-            <form method="POST" class="profile-cancel-form">
-                <button type="submit" name="annulla" class="profile-btn profile-btn-secondary">
-                    <i class="fas fa-times"></i> Annulla
-                </button>
-            </form>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" id="email" name="email"
+                            value="<?php echo htmlspecialchars($edit_values['email'] ?? ''); ?>" required>
+                    </div>
+
+                    <!-- La domanda di sicurezza non è modificabile -->
+
+                    <div class="form-group">
+                        <label for="current_password"><i class="fas fa-key"></i> Password attuale *</label>
+                        <div class="input-with-toggle">
+                            <input type="password" id="current_password" name="current_password" required
+                                placeholder="Password..." autocomplete="current-password">
+                            <i class="fas fa-eye toggle-password" id="toggleCurrentPassword" role="button" tabindex="0"
+                                aria-label="Mostra o nascondi password"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="profile-btn profile-btn-primary">
+                        <i class="fas fa-save"></i> Aggiorna Profilo
+                    </button>
+                </form>
+
+                <form method="POST" class="profile-cancel-form">
+                    <button type="submit" name="annulla" class="profile-btn profile-btn-secondary">
+                        <i class="fas fa-times"></i> Annulla
+                    </button>
+                </form>
+            </div>
         </div>
     </main>
 
