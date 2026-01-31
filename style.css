@@ -1,193 +1,194 @@
 /* --- RESET E IMPOSTAZIONI GLOBALI --- */
 /* Il "*" seleziona tutti gli elementi della pagina */
 * {
-    margin: 0;      /* Toglie i margini predefiniti del browser */
-    padding: 0;     /* Toglie lo spazio interno predefinito */
-    box-sizing: border-box; /* Calcola le dimensioni includendo i bordi */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipo di carattere */
+  margin: 0; /* Toglie i margini predefiniti del browser */
+  padding: 0; /* Toglie lo spazio interno predefinito */
+  box-sizing: border-box; /* Calcola le dimensioni includendo i bordi */
+  font-family:
+    "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Tipo di carattere */
 }
 
 body {
-    background-color: #1a1a1a; /* Lo sfondo scuro */
-    color: #ffffff;            /* Testo bianco di base */
-    display: flex;             /* Usa Flexbox per gestire il layout verticale */
-    flex-direction: column;    /* Ordina gli elementi in colonna (Header, Main, Footer) */
-    overflow-x: hidden;        /* Evita scorrimento orizzontale */
+  background-color: #1a1a1a; /* Lo sfondo scuro */
+  color: #ffffff; /* Testo bianco di base */
+  display: flex; /* Usa Flexbox per gestire il layout verticale */
+  flex-direction: column; /* Ordina gli elementi in colonna (Header, Main, Footer) */
+  overflow-x: hidden; /* Evita scorrimento orizzontale */
 }
 
 /* --- STILE DELLA BARRA IN ALTO (HEADER) --- */
 .main-header {
-    width: 100%;
-    height: 80px;              /* Altezza fissa della barra */
-    background-color: #111;    /* Leggermente più scuro dello sfondo per staccare */
-    display: flex;             /* Mette Navigazione e Login sulla stessa riga */
-    justify-content: space-between; /* Spinge Nav a sinistra e Login a destra */
-    align-items: center;       /* Centra verticalmente gli elementi nella barra */
-    padding: 0 40px;           /* Spazio laterale (destra e sinistra) */
-    position: fixed;           /* Fissa la barra in alto anche se scorri */
-    top: 0;
-    z-index: 100;              /* Assicura che stia sopra tutto il resto */
-    border-bottom: 1px solid #333; /* Una linea sottile sotto la barra */
+  width: 100%;
+  height: 80px; /* Altezza fissa della barra */
+  background-color: #111; /* Leggermente più scuro dello sfondo per staccare */
+  display: flex; /* Mette Navigazione e Login sulla stessa riga */
+  justify-content: space-between; /* Spinge Nav a sinistra e Login a destra */
+  align-items: center; /* Centra verticalmente gli elementi nella barra */
+  padding: 0 40px; /* Spazio laterale (destra e sinistra) */
+  position: fixed; /* Fissa la barra in alto anche se scorri */
+  top: 0;
+  z-index: 100; /* Assicura che stia sopra tutto il resto */
+  border-bottom: 1px solid #333; /* Una linea sottile sotto la barra */
 }
 
 /* Stile dei Link del Menu (Home, Chi siamo...) */
 .nav-links a {
-    text-decoration: none;     /* Toglie la sottolineatura */
-    color: #ccc;               /* Colore grigio chiaro */
-    font-size: 1rem;
-    margin-right: 25px;        /* Spazio tra un link e l'altro */
-    text-transform: uppercase; /* Tutto maiuscolo */
-    letter-spacing: 1px;       /* Spaziatura tra le lettere */
-    transition: color 0.3s;    /* Animazione fluida per il cambio colore */
+  text-decoration: none; /* Toglie la sottolineatura */
+  color: #ccc; /* Colore grigio chiaro */
+  font-size: 1rem;
+  margin-right: 25px; /* Spazio tra un link e l'altro */
+  text-transform: uppercase; /* Tutto maiuscolo */
+  letter-spacing: 1px; /* Spaziatura tra le lettere */
+  transition: color 0.3s; /* Animazione fluida per il cambio colore */
 }
 
 /* Effetto quando passi il mouse sui link */
 .nav-links a:hover {
-    color: #d4af37;            /* Diventa color Oro */
+  color: #d4af37; /* Diventa color Oro */
 }
 
 /* --- SEZIONE LOGIN/REGISTRAZIONE (Destra) --- */
 .auth-section {
-    display: flex;
-    align-items: center;       /* Allinea icona e testo */
-    gap: 10px;                 /* Spazio tra gli elementi */
+  display: flex;
+  align-items: center; /* Allinea icona e testo */
+  gap: 10px; /* Spazio tra gli elementi */
 }
 
 .user-icon {
-    font-size: 1.5rem;         /* Grandezza icona */
-    color: #d4af37;            /* Oro */
+  font-size: 1.5rem; /* Grandezza icona */
+  color: #d4af37; /* Oro */
 }
 
 .auth-btn {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: color 0.3s;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: color 0.3s;
 }
 
 .auth-btn:hover {
-    color: #d4af37;
+  color: #d4af37;
 }
 
 .separator {
-    color: #555;               /* Colore della stanghetta | */
+  color: #555; /* Colore della stanghetta | */
 }
 
 /* --- SEZIONE CENTRALE (TITOLO) --- */
 .hero-section {
-
-    height: 100vh;
-    display: flex;             /* Usa Flexbox per centrare */
-    justify-content: center;   /* Centra orizzontalmente */
-    align-items: center;       /* Centra verticalmente */
-    width: 100%;
+  height: 100vh;
+  display: flex; /* Usa Flexbox per centrare */
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+  width: 100%;
 }
 
 .main-title {
-    font-size: 4rem;           /* Testo molto grande */
-    font-weight: 300;          /* Testo sottile ed elegante */
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    color: #d4af37;            /* Oro */
-    text-align: center;
-    
-    /* IMPOSTAZIONI ANIMAZIONE */
-    opacity: 0;                                  /* Parte invisibile */
-    animation: textReveal 1.5s ease-out forwards;/* Esegue l'animazione 'textReveal' */
+  font-size: 4rem; /* Testo molto grande */
+  font-weight: 300; /* Testo sottile ed elegante */
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #d4af37; /* Oro */
+  text-align: center;
+
+  /* IMPOSTAZIONI ANIMAZIONE */
+  opacity: 0; /* Parte invisibile */
+  animation: textReveal 1.5s ease-out forwards; /* Esegue l'animazione 'textReveal' */
 }
 
 /* Definizione del movimento dell'animazione */
 @keyframes textReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(50px); /* Parte dal basso (50px sotto) */
-    }
-    100% {
-        opacity: 1;                  /* Diventa visibile */
-        transform: translateY(0);    /* Arriva al centro esatto */
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* Parte dal basso (50px sotto) */
+  }
+  100% {
+    opacity: 1; /* Diventa visibile */
+    transform: translateY(0); /* Arriva al centro esatto */
+  }
 }
 
 /* ------------------------------------------- */
 /* --- FOOTER A 4 COLONNE --- */
 /* ------------------------------------------- */
 .main-footer {
-    background-color: #111;
-    color: #ccc;
-    /* Padding ridotto per farlo più compatto (prima era 50px) */
-    padding-top: 20px;          
-    border-top: 1px solid #333;
-    width: 100%;
-    font-size: 0.9rem;          /* Font leggermente più piccolo */
+  background-color: #111;
+  color: #ccc;
+  /* Padding ridotto per farlo più compatto (prima era 50px) */
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  width: 100%;
+  font-size: 0.9rem; /* Font leggermente più piccolo */
 }
 
 /* Contenitore delle 4 colonne */
 .footer-container {
-    display: flex;              /* Mette le colonne in riga */
-    justify-content: space-around; /* Spazio uguale attorno */
-    flex-wrap: wrap;            /* Va a capo se lo schermo è piccolo */
-    max-width: 1200px;
-    margin: 0 auto;             /* Centra il blocco */
-    padding-bottom: 10px;       /* Spazio ridotto sotto */
+  display: flex; /* Mette le colonne in riga */
+  justify-content: space-around; /* Spazio uguale attorno */
+  flex-wrap: wrap; /* Va a capo se lo schermo è piccolo */
+  max-width: 1200px;
+  margin: 0 auto; /* Centra il blocco */
+  padding-bottom: 10px; /* Spazio ridotto sotto */
 }
 
 /* Singola colonna */
 .footer-col {
-    flex: 1;                    /* Tutte larghe uguali */
-    min-width: 180px;           /* Larghezza minima */
-    padding: 0 15px;
+  flex: 1; /* Tutte larghe uguali */
+  min-width: 180px; /* Larghezza minima */
+  padding: 0 15px;
 }
 
 /* Titoli delle colonne (Acquisti, Chi Siamo...) */
 .footer-col h3 {
-    color: #d4af37;             /* Oro */
-    font-size: 1rem;            /* Ridotto da 1.2rem */
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  color: #d4af37; /* Oro */
+  font-size: 1rem; /* Ridotto da 1.2rem */
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .footer-col ul {
-    list-style: none;           /* Toglie i pallini elenco */
+  list-style: none; /* Toglie i pallini elenco */
 }
 
 .footer-col ul li {
-    margin-bottom: 6px;         /* Spazio ridotto tra le righe */
+  margin-bottom: 6px; /* Spazio ridotto tra le righe */
 }
 
 /* Link nel footer */
 .footer-col a {
-    text-decoration: none;
-    color: #ccc;
-    transition: color 0.3s;
-    display: inline-block;
+  text-decoration: none;
+  color: #ccc;
+  transition: color 0.3s;
+  display: inline-block;
 }
 
 .footer-col a:hover {
-    color: #d4af37;
-    padding-left: 5px;          /* Effetto movimento a destra */
+  color: #d4af37;
+  padding-left: 5px; /* Effetto movimento a destra */
 }
 
 /* Social e Contatti (Icona + Testo) */
-.social-links a, .contact-info p {
-    display: flex;              /* Allinea icona e testo */
-    align-items: center;
-    gap: 8px;                   /* Spazio tra icona e testo */
-    color: #ccc;
-    text-decoration: none;
-    margin-bottom: 8px;         /* Più compatto */
+.social-links a,
+.contact-info p {
+  display: flex; /* Allinea icona e testo */
+  align-items: center;
+  gap: 8px; /* Spazio tra icona e testo */
+  color: #ccc;
+  text-decoration: none;
+  margin-bottom: 8px; /* Più compatto */
 }
 
 .social-links a:hover {
-    color: #d4af37;
+  color: #d4af37;
 }
 
 /* Colore Icone */
 .footer-col i {
-    color: #d4af37;             /* Oro */
-    width: 20px;
-    text-align: center;
+  color: #d4af37; /* Oro */
+  width: 20px;
+  text-align: center;
 }
 
 /* ============================================================
@@ -196,199 +197,199 @@ body {
 
 /* Contenitore generale della pagina */
 .calendar-section {
-    padding: 120px 20px 20px 20px; /* Spazio in alto per l'header fisso */
-    flex-grow: 1; /* Occupa lo spazio disponibile */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 120px 20px 20px 20px; /* Spazio in alto per l'header fisso */
+  flex-grow: 1; /* Occupa lo spazio disponibile */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .calendar-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .form-success {
-    color: green;
-    margin-bottom: 10px;
+  color: green;
+  margin-bottom: 10px;
 }
 
 .form-error {
-    color: #b00020;
-    margin-bottom: 10px;
+  color: #b00020;
+  margin-bottom: 10px;
 }
 
 /* Contenitore per lo scroll orizzontale su mobile */
 .table-container {
-    width: 100%;
-    max-width: 1000px;
-    overflow-x: auto; /* Se la tabella è troppo larga, appare la barra di scorrimento */
-    box-shadow: 0 0 20px rgba(0,0,0,0.5); /* Ombra elegante */
+  width: 100%;
+  max-width: 1000px;
+  overflow-x: auto; /* Se la tabella è troppo larga, appare la barra di scorrimento */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombra elegante */
 }
 
 /* Stile della tabella */
 .booking-table {
-    width: 100%;
-    border-collapse: collapse; /* Toglie lo spazio doppio tra le celle */
-    background-color: #222; /* Sfondo leggermente più chiaro del body */
-    color: #fff;
-    min-width: 600px; /* Larghezza minima per non schiacciare troppo */
-    table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse; /* Toglie lo spazio doppio tra le celle */
+  background-color: #222; /* Sfondo leggermente più chiaro del body */
+  color: #fff;
+  min-width: 600px; /* Larghezza minima per non schiacciare troppo */
+  table-layout: fixed;
 }
 
 /* Celle e Intestazioni */
-.booking-table th, 
+.booking-table th,
 .booking-table td {
-    padding: 15px;
-    border: 1px solid #444; /* Bordi grigio scuro */
-    text-align: center;
-    width: 12.5%;
-    overflow-wrap: anywhere;
+  padding: 15px;
+  border: 1px solid #444; /* Bordi grigio scuro */
+  text-align: center;
+  width: 12.5%;
+  overflow-wrap: anywhere;
 }
 
 .calendar-grid {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .calendar-grid th,
 .calendar-grid td {
-    border: 1px solid #444;
-    padding: 12px;
-    vertical-align: middle;
+  border: 1px solid #444;
+  padding: 12px;
+  vertical-align: middle;
 }
 
 .calendar-grid th.time {
-    width: 140px;
-    background: #111;
-    color: #d4af37;
+  width: 140px;
+  background: #111;
+  color: #d4af37;
 }
 
 .calendar-grid th.day-header,
 .calendar-grid td {
-    min-width: 140px;
+  min-width: 140px;
 }
 
 /* Intestazione (Giorni e Orari) */
 .booking-table th {
-    background-color: #111; /* Sfondo scuro intestazione */
-    color: #d4af37; /* Testo Oro */
-    text-transform: uppercase;
-    font-size: 0.9rem;
+  background-color: #111; /* Sfondo scuro intestazione */
+  color: #d4af37; /* Testo Oro */
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 /* Effetto al passaggio del mouse sulle celle "libere" */
 .booking-table td:not(.closed-day):hover {
-    background-color: #333; /* Si illumina leggermente */
-    cursor: pointer; /* Cambia cursore in manina */
-    color: #d4af37;
+  background-color: #333; /* Si illumina leggermente */
+  cursor: pointer; /* Cambia cursore in manina */
+  color: #d4af37;
 }
 
 .barber-cell {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 6px auto;
-    font-size: 0.85rem;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px auto;
+  font-size: 0.85rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Semaforo colors: green = libero, yellow = parzialmente occupato, red = totalmente occupato */
 .free {
-    background: #27ae60;
-    color: #ffffff;
+  background: #27ae60;
+  color: #ffffff;
 }
 
 .partial {
-    background: #f1c40f;
-    color: #1e1e1e;
+  background: #f1c40f;
+  color: #1e1e1e;
 }
 
 .full {
-    background: #e74c3c;
-    color: #ffffff;
+  background: #e74c3c;
+  color: #ffffff;
 }
 
 .calendar-grid .closed-day {
-    background: #efefef;
-    color: #666;
-    text-align: center;
+  background: #efefef;
+  color: #666;
+  text-align: center;
 }
 
 .day-header {
-    font-weight: 600;
-    font-size: 0.8rem;
-    text-align: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .day-header .day-name {
-    display: block;
-    font-weight: 700;
-    font-size: 0.9rem;
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .day-header .day-date {
-    display: block;
-    font-size: 0.8rem;
-    color: #d0cfcf;
+  display: block;
+  font-size: 0.8rem;
+  color: #d0cfcf;
 }
 
 .legend {
-    margin-top: 10px;
-    display: flex;
-    gap: 18px;
-    align-items: center;
+  margin-top: 10px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
 }
 
 .legend .item {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-weight: 600;
-    color: #333;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  color: #333;
 }
 
 .legend .swatch {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: inline-block;
-    padding: 20px;
-    margin-left: 20px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 20px;
+  margin-left: 20px;
 }
 
 .legend .swatch--free {
-    background: #27ae60;
+  background: #27ae60;
 }
 
 .legend .swatch--partial {
-    background: #f1c40f;
+  background: #f1c40f;
 }
 
 .legend .swatch--full {
-    background: #e74c3c;
+  background: #e74c3c;
 }
 
 /* GIORNI DI CHIUSURA (Rosso) */
 .closed-day {
-    background-color: #8b0000; /* Rosso scuro elegante (DarkRed) */
-    color: #fff;
-    font-weight: bold;
-    letter-spacing: 2px;
-    vertical-align: middle; /* Centra la scritta verticalmente nel blocco unico */
+  background-color: #8b0000; /* Rosso scuro elegante (DarkRed) */
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  vertical-align: middle; /* Centra la scritta verticalmente nel blocco unico */
 }
 
 /* Evidenzia il link attivo nel menu */
 .nav-links a.active {
-    color: #d4af37;
-    border-bottom: 1px solid #d4af37;
+  color: #d4af37;
+  border-bottom: 1px solid #d4af37;
 }
 
 /* ============================================================
@@ -396,152 +397,152 @@ body {
    ============================================================ */
 
 .card-main {
-    padding: 120px 40px 40px 40px;
-    margin: 40px auto;
-    max-width: 1200px;
-    background: transparent;
-    color: inherit;
-    border-radius: 12px;
+  padding: 120px 40px 40px 40px;
+  margin: 40px auto;
+  max-width: 1200px;
+  background: transparent;
+  color: inherit;
+  border-radius: 12px;
 }
 
 .page-title {
-    color: #d4af37;
-    margin: 0 0 8px 0;
-    padding-top: 4px;
-    font-size: 40px;
-    line-height: 1.05;
-    font-weight: 800;
-    letter-spacing: 0.4px;
+  color: #d4af37;
+  margin: 0 0 8px 0;
+  padding-top: 4px;
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: 0.4px;
 }
 
 .page-subtitle {
-    color: #e7d6a3;
-    margin: 8px 0 20px 0;
-    font-size: 15px;
+  color: #e7d6a3;
+  margin: 8px 0 20px 0;
+  font-size: 15px;
 }
 
 .status-success {
-    color: #9ee39e;
-    margin-bottom: 12px;
+  color: #9ee39e;
+  margin-bottom: 12px;
 }
 
 .status-error {
-    color: #ff8b8b;
-    margin-bottom: 12px;
+  color: #ff8b8b;
+  margin-bottom: 12px;
 }
 
 .toolbar {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin: 18px 0 22px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0 22px 0;
 }
 
 .btn-export {
-    background: linear-gradient(135deg, #d4af37, #f7c948);
-    color: #111;
-    margin: 0;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 700;
-    display: inline-block;
+  background: linear-gradient(135deg, #d4af37, #f7c948);
+  color: #111;
+  margin: 0;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-block;
 }
 
 .table-container--spaced {
-    margin-bottom: 28px;
+  margin-bottom: 28px;
 }
 
 .table-head-row {
-    text-align: left;
-    background: #111;
-    color: #d4af37;
+  text-align: left;
+  background: #111;
+  color: #d4af37;
 }
 
 .table-empty {
-    padding: 16px;
-    text-align: center;
-    color: #ccc;
+  padding: 16px;
+  text-align: center;
+  color: #ccc;
 }
 
 .table-empty-compact {
-    padding: 8px;
-    color: #666;
+  padding: 8px;
+  color: #666;
 }
 
 .card-sub {
-    padding: 28px 24px;
+  padding: 28px 24px;
 }
 
 .card-sub__header {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .card-sub__title {
-    margin: 0;
-    font-size: 20px;
-    color: #d4af37;
+  margin: 0;
+  font-size: 20px;
+  color: #d4af37;
 }
 
 .card-sub__subtitle {
-    margin: 6px 0 0 0;
-    color: #bfb6a0;
-    font-size: 13px;
+  margin: 6px 0 0 0;
+  color: #bfb6a0;
+  font-size: 13px;
 }
 
 .muted-note {
-    color: #666;
-    padding: 12px 0;
+  color: #666;
+  padding: 12px 0;
 }
 
 .booking-table--wide {
-    min-width: 800px;
-    margin-top: 10px;
+  min-width: 800px;
+  margin-top: 10px;
 }
 
 .actions-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #d4af37, #f7c948);
-    color: #111;
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
+  background: linear-gradient(135deg, #d4af37, #f7c948);
+  color: #111;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .btn-outline {
-    background: #1e1e1e;
-    color: #d4af37;
-    border: 2px solid #d4af37;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
+  background: #1e1e1e;
+  color: #d4af37;
+  border: 2px solid #d4af37;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .status-message {
-    margin-top: 10px;
-    color: #9ee39e;
+  margin-top: 10px;
+  color: #9ee39e;
 }
 
 .cancel-detail {
-    margin-top: 18px;
-    padding: 14px;
-    border: 1px solid #333;
-    background: #111;
-    color: #fff;
-    border-radius: 8px;
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
 }
 
 .cancel-detail__title {
-    color: #d4af37;
+  color: #d4af37;
 }
 
 /* ============================================================
@@ -549,133 +550,133 @@ body {
    ============================================================ */
 
 .barber-profiles-section {
-    padding-top: 100px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  padding-top: 100px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .barber-profile {
-    width: 100%;
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 /* --- Descrizione introduttiva --- */
 
 .shop-description {
-    text-align: center;
-    padding: 0 20px 60px 20px; /* Spazio sotto per staccarlo dal Team */
-    max-width: 900px; /* Non lo facciamo diventare troppo largo per facilitare la lettura */
-    margin: 0 auto; /* Centra il blocco nella pagina */
+  text-align: center;
+  padding: 0 20px 60px 20px; /* Spazio sotto per staccarlo dal Team */
+  max-width: 900px; /* Non lo facciamo diventare troppo largo per facilitare la lettura */
+  margin: 0 auto; /* Centra il blocco nella pagina */
 }
 
 .shop-description .main-title {
-    color: #d4af37; /* Oro */
-    font-size: 3rem;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
+  color: #d4af37; /* Oro */
+  font-size: 3rem;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 .description-text p {
-    color: #e0e0e0; /* Bianco sporco leggibile */
-    font-size: 1.2rem;
-    line-height: 1.8; /* Più spazio tra le righe per eleganza */
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif; /* O il font che stai usando nel sito */
+  color: #e0e0e0; /* Bianco sporco leggibile */
+  font-size: 1.2rem;
+  line-height: 1.8; /* Più spazio tra le righe per eleganza */
+  margin-bottom: 20px;
+  font-family: "Arial", sans-serif; /* O il font che stai usando nel sito */
 }
 
 /* Titolo h2 */
 .section-title {
-    color: #ffffff;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    margin-top: 10px;
-    text-transform: uppercase;
-    border-bottom: 2px solid #d4af37; /* Sottolineatura oro */
-    padding-bottom: 10px;
-    display: inline-block;
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  margin-top: 10px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #d4af37; /* Sottolineatura oro */
+  padding-bottom: 10px;
+  display: inline-block;
 }
 
 /* Sfondi alternati per stacco visivo */
 .profile-simone {
-    background-color: #1a1a1a; 
+  background-color: #1a1a1a;
 }
 
 .profile-massimo {
-    background-color: #222; 
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+  background-color: #222;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
 }
 
 .profile-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1100px;
-    width: 100%;
-    gap: 60px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  width: 100%;
+  gap: 60px;
 }
 
 /* Stile Testo */
 .profile-text {
-    flex: 1; 
-    color: #ccc;
+  flex: 1;
+  color: #ccc;
 }
 
 .profile-text h2 {
-    color: #d4af37;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  color: #d4af37;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .profile-text p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
 }
 
 /* Stile Immagine */
 .profile-image {
-    flex: 1;
-    display: flex;
-    justify-content: center; /* Centra la foto nel suo spazio */
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Centra la foto nel suo spazio */
+  align-items: center;
 }
 
 .profile-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 50%; 
-    border: 3px solid #d4af37; 
-    box-shadow: 0 0 25px rgba(0,0,0,0.8); 
-    object-fit: cover; 
-    width: 350px; 
-    height: 350px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+  object-fit: cover;
+  width: 350px;
+  height: 350px;
 }
 
 /* --- MOBILE (Schermi piccoli) --- */
 @media (max-width: 768px) {
-    .profile-content {
-        flex-direction: column; /* Impila tutto in verticale */
-        text-align: center;
-        gap: 40px;
-    }
+  .profile-content {
+    flex-direction: column; /* Impila tutto in verticale */
+    text-align: center;
+    gap: 40px;
+  }
 
-    .profile-text h2 {
-        font-size: 2rem;
-    }
+  .profile-text h2 {
+    font-size: 2rem;
+  }
 
-    .profile-image img {
-        width: 250px; 
-        height: 250px;
-    }
+  .profile-image img {
+    width: 250px;
+    height: 250px;
+  }
 }
 
 /* ============================================================
@@ -683,129 +684,128 @@ body {
    ============================================================ */
 
 .products-section {
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.section-subtitle{
-    color: #ffffff;
-    text-align: center;
-    margin-top: -100px;   /* avvicina al titolo, se vuoi */
-    margin-bottom: 30px; /* distanza dalla foto */
-    font-size: 1.1rem;
-    opacity: 0.85;
+.section-subtitle {
+  color: #ffffff;
+  text-align: center;
+  margin-top: -100px; /* avvicina al titolo, se vuoi */
+  margin-bottom: 30px; /* distanza dalla foto */
+  font-size: 1.1rem;
+  opacity: 0.85;
 }
 
 /* Stile base della card prodotto */
 .product-card {
-    width: 100%;
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 /* Colori alternati (identici a Chi Siamo) */
 .product-dark {
-    background-color: #1a1a1a;
+  background-color: #1a1a1a;
 }
 
 .product-light {
-    background-color: #222;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+  background-color: #222;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
 }
 
 .product-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1100px;
-    width: 100%;
-    gap: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  width: 100%;
+  gap: 60px;
 }
 
 /* Immagine Prodotto */
 .product-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-image img {
-    max-width: 100%;
-    width: 350px; /* Dimensione fissa per uniformità */
-    height: 350px;
-    object-fit: cover;
-    border-radius: 20px; /* Angoli arrotondati (più adatto ai prodotti rispetto al cerchio) */
-    border: 2px solid #d4af37;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-width: 100%;
+  width: 350px; /* Dimensione fissa per uniformità */
+  height: 350px;
+  object-fit: cover;
+  border-radius: 20px; /* Angoli arrotondati (più adatto ai prodotti rispetto al cerchio) */
+  border: 2px solid #d4af37;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Testo e Prezzo */
 .product-details {
-    flex: 1;
-    color: #ccc;
-    display: flex;           /* Usiamo flexbox per gestire il layout interno */
-    flex-direction: column;  /* Elementi uno sotto l'altro */
-    justify-content: space-between; /* Spinge gli elementi agli estremi se c'è altezza fissa */
-    min-height: 200px;      /* Diamo un'altezza minima per far funzionare bene la spaziatura */
+  flex: 1;
+  color: #ccc;
+  display: flex; /* Usiamo flexbox per gestire il layout interno */
+  flex-direction: column; /* Elementi uno sotto l'altro */
+  justify-content: space-between; /* Spinge gli elementi agli estremi se c'è altezza fissa */
+  min-height: 200px; /* Diamo un'altezza minima per far funzionare bene la spaziatura */
 }
 
 .product-details h2 {
-    color: #d4af37; /* Oro */
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-    text-transform: uppercase;
+  color: #d4af37; /* Oro */
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
 .product-details p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 /* STILE PREZZO */
 .product-price {
-    align-self: flex-end; /* Questo comando spinge il prezzo a DESTRA */
-    margin-top: auto;     /* Questo comando spinge il prezzo in BASSO rispetto al testo */
-    
-    font-size: 1.8rem;
-    color: #fff;
-    font-weight: bold;
-    background-color: #d4af37; /* Sfondo oro tipo etichetta */
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: #000; /* Testo nero su sfondo oro per contrasto */
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); /* Alone dorato */
+  align-self: flex-end; /* Questo comando spinge il prezzo a DESTRA */
+  margin-top: auto; /* Questo comando spinge il prezzo in BASSO rispetto al testo */
+
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: bold;
+  background-color: #d4af37; /* Sfondo oro tipo etichetta */
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #000; /* Testo nero su sfondo oro per contrasto */
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); /* Alone dorato */
 }
 
 /* --- MOBILE --- */
 @media (max-width: 768px) {
-    .product-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
+  .product-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
 
-    .product-details {
-        align-items: center; /* Centra tutto su mobile */
-    }
+  .product-details {
+    align-items: center; /* Centra tutto su mobile */
+  }
 
-    .product-price {
-        align-self: center; /* Su mobile il prezzo sta al centro sotto il testo */
-        margin-top: 20px;
-    }
+  .product-price {
+    align-self: center; /* Su mobile il prezzo sta al centro sotto il testo */
+    margin-top: 20px;
+  }
 
-    .product-image img {
-        width: 250px;
-        height: 250px;
-    }
+  .product-image img {
+    width: 250px;
+    height: 250px;
+  }
 }
-
 
 /* ============================================================
    9. LOGIN & REGISTRAZIONE
@@ -814,224 +814,224 @@ body {
 /* Contenitore generale della pagina di autenticazione */
 
 .auth-page-reg {
-    /* 1. Assicuriamo che lo sfondo copra tutto, anche se scorri */
-    min-height: 100vh;
-    width: 100%;
-    
-    /* 2. Flexbox per centrare orizzontalmente */
-    display: flex;
-    justify-content: center;
-    
-    /* 3. TRUCCO FONDAMENTALE: 
+  /* 1. Assicuriamo che lo sfondo copra tutto, anche se scorri */
+  min-height: 100vh;
+  width: 100%;
+
+  /* 2. Flexbox per centrare orizzontalmente */
+  display: flex;
+  justify-content: center;
+
+  /* 3. TRUCCO FONDAMENTALE: 
        Invece di 'center', usiamo 'flex-start'. 
        Così il box parte dall'alto e non viene mai tagliato sopra. */
-    align-items: flex-start; 
+  align-items: flex-start;
 
-    /* 4. Spaziatura sicura */
-    padding-top: 120px; /* Spazio abbondante per non finire sotto l'header */
-    padding-bottom: 80px; /* Spazio sotto per non "incollarsi" al fondo pagina */
-    
-    /* Sfondo */
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Mantiene lo sfondo fermo mentre scorri */
+  /* 4. Spaziatura sicura */
+  padding-top: 120px; /* Spazio abbondante per non finire sotto l'header */
+  padding-bottom: 80px; /* Spazio sotto per non "incollarsi" al fondo pagina */
+
+  /* Sfondo */
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Mantiene lo sfondo fermo mentre scorri */
 }
 
 .form-group select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #1a1a1a;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
 }
 
 .auth-page-log {
-    /* 1. Assicuriamo che lo sfondo copra tutto, anche se scorri */
-    min-height: 100vh;
-    width: 100%;
-    
-    /* 2. Flexbox per centrare orizzontalmente */
-    display: flex;
-    justify-content: center;
-    
-    /* 3. TRUCCO FONDAMENTALE: 
+  /* 1. Assicuriamo che lo sfondo copra tutto, anche se scorri */
+  min-height: 100vh;
+  width: 100%;
+
+  /* 2. Flexbox per centrare orizzontalmente */
+  display: flex;
+  justify-content: center;
+
+  /* 3. TRUCCO FONDAMENTALE: 
        Invece di 'center', usiamo 'flex-start'. 
        Così il box parte dall'alto e non viene mai tagliato sopra. */
-    align-items: flex-start; 
+  align-items: flex-start;
 
-    /* 4. Spaziatura sicura */
-    padding-top: 100px; /* Spazio abbondante per non finire sotto l'header */
-    padding-bottom: 90px; /* Spazio sotto per non "incollarsi" al fondo pagina */
-    
-    /* Sfondo */
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Mantiene lo sfondo fermo mentre scorri */
+  /* 4. Spaziatura sicura */
+  padding-top: 100px; /* Spazio abbondante per non finire sotto l'header */
+  padding-bottom: 90px; /* Spazio sotto per non "incollarsi" al fondo pagina */
+
+  /* Sfondo */
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Mantiene lo sfondo fermo mentre scorri */
 }
 
-#loginForm{
+#loginForm {
   max-width: 480px;
   margin: 0 auto;
 }
 
 /* La "Card" del form */
 .auth-card {
-    background-color: #222;
-    padding: 40px;
-    border-radius: 15px;
-    width: 100%;
-    max-width: 450px; /* Larghezza massima del box */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 1px solid #333;
-    text-align: center;
+  background-color: #222;
+  padding: 40px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px; /* Larghezza massima del box */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  text-align: center;
 }
 
 .auth-card h1 {
-    color: #d4af37;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+  color: #d4af37;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .auth-subtitle {
-    color: #aaa;
-    margin-bottom: 30px;
-    font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
 }
 
 .auth-message {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .auth-message--error {
-    color: #ff6b6b;
+  color: #ff6b6b;
 }
 
 .auth-message--info {
-    color: #d4af37;
+  color: #d4af37;
 }
 
 .auth-message--success {
-    color: #d4af37;
-    font-weight: bold;
-    margin-bottom: 10px;
+  color: #d4af37;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .btn-submit-link {
-    display: inline-block;
-    text-decoration: none;
-    line-height: 44px;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 44px;
 }
 
 .auth-links--compact {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .security-question-box {
-    padding: 12px;
-    background: #1a1a1a;
-    border: 1px solid #444;
-    border-radius: 5px;
-    color: #fff;
+  padding: 12px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: #fff;
 }
 
 /* Stile dei campi del form */
 .form-group {
-    margin-bottom: 20px;
-    text-align: left; /* Etichette allineate a sinistra */
+  margin-bottom: 20px;
+  text-align: left; /* Etichette allineate a sinistra */
 }
 
 .form-group label {
-    display: block;
-    color: #fff;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+  display: block;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
 }
 
 .form-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #1a1a1a;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    transition: 0.3s;
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
 }
 
 .form-group input:focus {
-    border-color: #d4af37; /* Bordo oro quando scrivi */
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+  border-color: #d4af37; /* Bordo oro quando scrivi */
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
 /* Riga per affiancare Nome e Cognome */
 .form-row {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .form-row .form-group {
-    flex: 1; /* Dividono lo spazio in parti uguali */
+  flex: 1; /* Dividono lo spazio in parti uguali */
 }
 
 /* Bottone di invio */
 .btn-submit {
-    width: 100%;
-    padding: 15px;
-    background-color: #d4af37;
-    color: #000;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    margin-top: 10px;
-    transition: background 0.3s;
+  width: 100%;
+  padding: 15px;
+  background-color: #d4af37;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: 10px;
+  transition: background 0.3s;
 }
 
 .btn-submit:hover {
-    background-color: #b39028; /* Oro più scuro all'hover */
+  background-color: #b39028; /* Oro più scuro all'hover */
 }
 
 /* Link in basso */
 .auth-links {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #ccc;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .auth-links a {
-    color: #888;
-    text-decoration: none;
-    transition: color 0.3s;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .auth-links a:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .auth-links .gold-link {
-    color: #d4af37;
-    font-weight: bold;
+  color: #d4af37;
+  font-weight: bold;
 }
 
 .auth-links .gold-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Piccola classe per evidenziare il link attivo nell'header */
 .active-auth {
-    color: #d4af37 !important;
-    font-weight: bold;
+  color: #d4af37 !important;
+  font-weight: bold;
 }
 
 /* =========================================
@@ -1039,181 +1039,181 @@ body {
    ========================================= */
 
 .booking-section {
-    width: 100%;
-    min-height: 100vh; /* Occupa quasi tutta l'altezza dello schermo */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 140px 20px 80px;
-    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8));
-    background-size: cover;
-    background-position: center;
+  width: 100%;
+  min-height: 100vh; /* Occupa quasi tutta l'altezza dello schermo */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 140px 20px 80px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+  background-size: cover;
+  background-position: center;
 }
 
 /* Contenitore del form */
 .booking-container {
-    background-color: #1a1a1a;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    width: 100%;
-    max-width: 600px; /* Larghezza massima del form */
-    border: 1px solid #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 600px; /* Larghezza massima del form */
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.booking-form{
-    width: 100%;
+.booking-form {
+  width: 100%;
 }
 
 .booking-subtitle {
-    text-align: center;
-    color: #ccc;
-    margin-bottom: 30px;
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 30px;
 }
 
 .booking-hint {
-    color: #888;
+  color: #888;
 }
 
 .booking-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
 }
 
 .btn-refresh {
-    background: linear-gradient(135deg, #d4af37, #f7c948);
-    color: #1e1e1e;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
+  background: linear-gradient(135deg, #d4af37, #f7c948);
+  color: #1e1e1e;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
 }
 
 .upcoming-bookings {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .upcoming-bookings h3 {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .upcoming-bookings__list {
-    list-style: none;
-    padding-left: 0;
+  list-style: none;
+  padding-left: 0;
 }
 
 .upcoming-bookings__item {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .upcoming-bookings .booking-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid #eee;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #eee;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff;
 }
 
 .upcoming-bookings .booking-item .booking-meta {
-    color: #333;
-    font-weight: 600;
+  color: #333;
+  font-weight: 600;
 }
 
 .upcoming-bookings .booking-item .booking-note {
-    color: #666;
-    font-size: 0.9rem;
+  color: #666;
+  font-size: 0.9rem;
 }
 
 .booking-note--spaced {
-    margin-top: 6px;
+  margin-top: 6px;
 }
 
 .btn-cancel {
-    background: #b00020;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  background: #b00020;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-cancel i {
-    font-size: 0.95em;
+  font-size: 0.95em;
 }
 
 .btn-cancel:hover {
-    filter: brightness(0.95);
+  filter: brightness(0.95);
 }
 
 .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
 }
 
 .modal {
-    background: #fff;
-    border-radius: 10px;
-    padding: 18px;
-    max-width: 520px;
-    width: 92%;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  max-width: 520px;
+  width: 92%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .modal h3 {
-    margin-top: 0;
-    color: #1e1e1e;
+  margin-top: 0;
+  color: #1e1e1e;
 }
 
 .modal textarea {
-    width: 100%;
-    min-height: 100px;
-    border: 1px solid #ddd;
-    padding: 8px;
-    border-radius: 6px;
-    resize: vertical;
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 6px;
+  resize: vertical;
 }
 
 .modal-actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 
 .modal .btn-cancel-confirm {
-    background: #b00020;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
+  background: #b00020;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
 }
 
 .modal .btn-close {
-    background: #e7e7e7;
-    color: #222;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
+  background: #e7e7e7;
+  color: #222;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* ============================================================
@@ -1221,248 +1221,250 @@ body {
    ============================================================ */
 
 .profile-container {
-    max-width: 600px;
-    margin: 120px auto 80px;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 120px auto 80px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .profile-title {
-    text-align: center;
-    color: #d4af37;
-    margin-bottom: 30px;
-    font-size: 2.2em;
+  text-align: center;
+  color: #d4af37;
+  margin-bottom: 30px;
+  font-size: 2.2em;
 }
 
 .success-msg {
-    color: #2e7d32;
-    margin-bottom: 12px;
-    font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 12px;
+  font-weight: 600;
 }
 
 .error-msg {
-    color: #b00020;
-    margin-bottom: 12px;
-    font-weight: 600;
+  color: #b00020;
+  margin-bottom: 12px;
+  font-weight: 600;
 }
 
 .profile-container .form-group {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .profile-container .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
 }
 
 .profile-container .form-group input,
 .profile-container .form-group textarea {
-    width: 100%;
-    padding: 15px;
-    padding-right: 44px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  padding-right: 44px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
 .profile-container .form-group input:focus,
 .profile-container .form-group textarea:focus {
-    outline: none;
-    border-color: #d4af37;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .input-with-toggle {
-    position: relative;
-    display: block;
+  position: relative;
+  display: block;
 }
 
 .toggle-password {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #888;
-    z-index: 2;
-    font-size: 1rem;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  z-index: 2;
+  font-size: 1rem;
 }
 
 .input-with-toggle input {
-    padding-right: 44px;
+  padding-right: 44px;
 }
 
 .auth-message--hidden {
-    display: none;
+  display: none;
 }
 
 .strength-bar {
-    height: 8px;
-    width: 0%;
-    border-radius: 4px;
-    transition: width 0.28s ease, background-color 0.28s ease;
+  height: 8px;
+  width: 0%;
+  border-radius: 4px;
+  transition:
+    width 0.28s ease,
+    background-color 0.28s ease;
 }
 
 .strength-text {
-    display: block;
-    margin-top: 6px;
-    transition: color 0.28s ease;
+  display: block;
+  margin-top: 6px;
+  transition: color 0.28s ease;
 }
 
 .profile-btn {
-    padding: 15px 30px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-    margin: 10px 0;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  margin: 10px 0;
 }
 
 .profile-btn-primary {
-    background: linear-gradient(135deg, #d4af37, #f7c948);
-    color: #1e1e2e;
+  background: linear-gradient(135deg, #d4af37, #f7c948);
+  color: #1e1e2e;
 }
 
 .profile-btn-secondary {
-    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-    color: #fff;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: #fff;
 }
 
 .profile-btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
 }
 
 .profile-btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
 }
 
 .profile-section--hidden {
-    display: none;
+  display: none;
 }
 
 .profile-section--visible {
-    display: block;
+  display: block;
 }
 
 .profile-password-intro {
-    text-align: center;
-    color: #666;
-    margin-bottom: 30px;
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
 }
 
 .profile-password-icon {
-    font-size: 3em;
-    color: #d4af37;
+  font-size: 3em;
+  color: #d4af37;
 }
 
 .profile-password-text {
-    font-size: 1.2em;
-    margin-top: 15px;
+  font-size: 1.2em;
+  margin-top: 15px;
 }
 
 .profile-forgot {
-    text-align: center;
-    margin-top: 12px;
+  text-align: center;
+  margin-top: 12px;
 }
 
 .profile-cancel-form {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {
-    .profile-container {
-        margin: 20px 20px 80px;
-        padding: 20px;
-    }
+  .profile-container {
+    margin: 20px 20px 80px;
+    padding: 20px;
+  }
 }
 
 /* Stile specifico per i campi del form di prenotazione */
 .booking-form .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .booking-form label {
-    display: block;
-    margin-bottom: 8px;
-    color: #d4af37; /* Etichette color Oro */
-    font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #d4af37; /* Etichette color Oro */
+  font-weight: bold;
 }
 
 .booking-form label i {
-    margin-right: 5px; /* Spazio tra icona e testo */
+  margin-right: 5px; /* Spazio tra icona e testo */
 }
 
 /* Input, Select e Textarea */
 .booking-form input,
 .booking-form select,
 .booking-form textarea {
-    width: 100%;
-    padding: 12px;
-    background-color: #222;
-    border: 1px solid #444;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
+  width: 100%;
+  padding: 12px;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
 }
 
 /* Effetto quando clicchi su un campo */
 .booking-form input:focus,
 .booking-form select:focus,
 .booking-form textarea:focus {
-    border-color: #d4af37;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+  border-color: #d4af37;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
 
 /* Stile per l'input data e ora (cambia l'icona del calendario in bianco/scuro se supportato dal browser) */
 ::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* Rende l'icona del calendario bianca su sfondo scuro */
-    cursor: pointer;
+  filter: invert(1); /* Rende l'icona del calendario bianca su sfondo scuro */
+  cursor: pointer;
 }
 
 /* Mobile Responsive per Prenota */
 @media (max-width: 600px) {
-    .booking-container {
-        padding: 20px;
-    }
-    
-    /* Su mobile i campi data e ora vanno uno sotto l'altro */
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
+  .booking-container {
+    padding: 20px;
+  }
+
+  /* Su mobile i campi data e ora vanno uno sotto l'altro */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 /* Stile Mappa Full Width */
 #map-container {
-    width: 100%;
-    margin-top: 60px;    /* Spazio sopra per staccare dai profili */
-    margin-bottom: 60px; /* Spazio sotto prima del footer */
+  width: 100%;
+  margin-top: 60px; /* Spazio sopra per staccare dai profili */
+  margin-bottom: 60px; /* Spazio sotto prima del footer */
 }
 
-#map { 
-    height: 450px; 
-    width: 100%;   
-    z-index: 1;
-    border-top: 3px solid #d4af37;    /* Bordo Oro sopra */
-    border-bottom: 3px solid #d4af37; /* Bordo Oro sotto */
+#map {
+  height: 450px;
+  width: 100%;
+  z-index: 1;
+  border-top: 3px solid #d4af37; /* Bordo Oro sopra */
+  border-bottom: 3px solid #d4af37; /* Bordo Oro sotto */
 }
 
-.map-title { 
-    text-align: center; 
-    color: #d4af37; 
-    margin-bottom: 30px; 
-    text-transform: uppercase; 
-    font-size: 2rem;
+.map-title {
+  text-align: center;
+  color: #d4af37;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-size: 2rem;
 }
