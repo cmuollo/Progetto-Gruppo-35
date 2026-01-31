@@ -1216,6 +1216,177 @@ body {
     cursor: pointer;
 }
 
+/* ============================================================
+   PAGINA PROFILO UTENTE
+   ============================================================ */
+
+.profile-container {
+    max-width: 600px;
+    margin: 120px auto 80px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.profile-title {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+}
+
+.success-msg {
+    color: #2e7d32;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.error-msg {
+    color: #b00020;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.profile-container .form-group {
+    margin-bottom: 25px;
+}
+
+.profile-container .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.profile-container .form-group input,
+.profile-container .form-group textarea {
+    width: 100%;
+    padding: 15px;
+    padding-right: 44px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.profile-container .form-group input:focus,
+.profile-container .form-group textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.input-with-toggle {
+    position: relative;
+    display: block;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    z-index: 2;
+    font-size: 1rem;
+}
+
+.input-with-toggle input {
+    padding-right: 44px;
+}
+
+.auth-message--hidden {
+    display: none;
+}
+
+.strength-bar {
+    height: 8px;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.28s ease, background-color 0.28s ease;
+}
+
+.strength-text {
+    display: block;
+    margin-top: 6px;
+    transition: color 0.28s ease;
+}
+
+.profile-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.profile-btn-primary {
+    background: linear-gradient(135deg, #d4af37, #f7c948);
+    color: #1e1e2e;
+}
+
+.profile-btn-secondary {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: #fff;
+}
+
+.profile-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+}
+
+.profile-btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+}
+
+.profile-section--hidden {
+    display: none;
+}
+
+.profile-section--visible {
+    display: block;
+}
+
+.profile-password-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.profile-password-icon {
+    font-size: 3em;
+    color: #d4af37;
+}
+
+.profile-password-text {
+    font-size: 1.2em;
+    margin-top: 15px;
+}
+
+.profile-forgot {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.profile-cancel-form {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 20px 20px 80px;
+        padding: 20px;
+    }
+}
+
 /* Stile specifico per i campi del form di prenotazione */
 .booking-form .form-group {
     margin-bottom: 20px;

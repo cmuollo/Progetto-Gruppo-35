@@ -102,7 +102,7 @@
     var lat = 40.742556;
     var lon = 14.625962;
 
-    // Create map only after DOM ready to avoid issues with hidden containers
+    // crea la mappa solo dopo che il DOM è pronto per evitare problemi con contenitori nascosti
     document.addEventListener('DOMContentLoaded', function(){
         var map = L.map('map', {
             scrollWheelZoom: false

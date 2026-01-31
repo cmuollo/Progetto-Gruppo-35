@@ -9,7 +9,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $conn = pg_connect($connection_string);
-if (!$conn) die('Errore DB.');
+if (!$conn)
+    die('Errore DB.');
 
 $userid = intval($_SESSION['user_id']);
 $messaggio = '';
@@ -35,9 +36,9 @@ if (isset($_POST['verifica_password']) && !empty($_POST['password'])) {
     // fetch hashed password from DB
     $res_check = pg_query_params($conn, 'SELECT password_hash FROM utenti WHERE id=$1', array($userid));
     if ($res_check && pg_num_rows($res_check) > 0) {
-    $row = pg_fetch_assoc($res_check);
-    $stored = $row['password_hash'];
-    if ($stored && (password_verify($password, $stored) || (@crypt($password, $stored) === $stored))) {
+        $row = pg_fetch_assoc($res_check);
+        $stored = $row['password_hash'];
+        if ($stored && (password_verify($password, $stored) || (@crypt($password, $stored) === $stored))) {
             // Mostra il form di modifica solo per questa richiesta
             $mostra_form = true;
             $messaggio = '<div class="success-msg">Password corretta! Ora puoi modificare i dati (dovrai inserire nuovamente la password per confermare).</div>';
@@ -94,8 +95,14 @@ if (isset($_POST['aggiorna_dati'])) {
                             $_SESSION = array();
                             if (ini_get("session.use_cookies")) {
                                 $params = session_get_cookie_params();
-                                setcookie(session_name(), '', time() - 42000,
-                                    $params['path'], $params['domain'], $params['secure'], $params['httponly']
+                                setcookie(
+                                    session_name(),
+                                    '',
+                                    time() - 42000,
+                                    $params['path'],
+                                    $params['domain'],
+                                    $params['secure'],
+                                    $params['httponly']
                                 );
                             }
                             session_unset();
@@ -128,6 +135,7 @@ pg_close($conn);
 
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,115 +143,101 @@ pg_close($conn);
     <link rel="icon" type="image/jpeg" href="multimedia/barbiere.jpeg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* stili per il form */
-    .profile-container { max-width: 600px; margin: 120px auto 80px; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .success-msg { color: #2e7d32; margin-bottom: 12px; font-weight: 600; }
-        .error-msg { color: #b00020; margin-bottom: 12px; font-weight: 600; }
-        .profile-title { text-align: center; color: #d4af37; margin-bottom: 30px; font-size: 2.2em; }
-    .form-group { margin-bottom: 25px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
-    .form-group input, .form-group textarea { width: 100%; padding: 15px; padding-right: 44px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; transition: border-color 0.3s; box-sizing: border-box; }
-    /* wrapper che contiene input + icona per centrare l'occhio rispetto all'input */
-    .input-with-toggle { position: relative; display: block; }
-    /* icona per mostra/nascondi password dentro il field (centrata verticalmente rispetto all'input) */
-    .toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888; z-index: 2; font-size: 1rem; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #d4af37; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
-        .btn-primary, .btn-secondary { padding: 15px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; width: 100%; margin: 10px 0; }
-        .btn-primary { background: linear-gradient(135deg, #d4af37, #f7c948); color: #1e1e2e; }
-        .btn-secondary { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175,55,0.4); }
-        .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255,107,107,0.4); }
-        .password-section, .edit-section { display: <?php echo $mostra_form ? 'none' : 'block'; ?>; }
-        .edit-section { display: <?php echo $mostra_form ? 'block' : 'none'; ?>; }
-    @media (max-width: 768px) { .profile-container { margin: 20px 20px 80px; padding: 20px; } }
-    </style>
 </head>
+
 <body>
     <?php include __DIR__ . '/includes/header.php'; ?>
-    
+
     <div class="profile-container">
         <h1 class="profile-title"><i class="fas fa-user-edit"></i> Profilo Utente</h1>
-        
+
         <?php echo $messaggio; ?>
-        
+
         <!-- SEZIONE PASSWORD -->
-        <div class="password-section">
-            <div style="text-align: center; color: #666; margin-bottom: 30px;">
-                <i class="fas fa-lock" style="font-size: 3em; color: #d4af37;"></i>
-                <p style="font-size: 1.2em; margin-top: 15px;">Inserisci password per modificare dati</p>
+        <div class="password-section <?= $mostra_form ? 'profile-section--hidden' : 'profile-section--visible' ?>">
+            <div class="profile-password-intro">
+                <i class="fas fa-lock profile-password-icon"></i>
+                <p class="profile-password-text">Inserisci password per modificare dati</p>
             </div>
-            
+
             <form method="POST">
                 <div class="form-group">
                     <label for="password"><i class="fas fa-key"></i> Password attuale</label>
                     <div class="input-with-toggle">
-                        <input type="password" id="password" name="password" required placeholder="Password..." autocomplete="current-password">
-                        <i class="fas fa-eye toggle-password" id="toggleVerifyPassword" role="button" tabindex="0" aria-label="Mostra o nascondi password"></i>
+                        <input type="password" id="password" name="password" required placeholder="Password..."
+                            autocomplete="current-password">
+                        <i class="fas fa-eye toggle-password" id="toggleVerifyPassword" role="button" tabindex="0"
+                            aria-label="Mostra o nascondi password"></i>
                     </div>
                 </div>
-                <button type="submit" name="verifica_password" class="btn-primary">
+                <button type="submit" name="verifica_password" class="profile-btn profile-btn-primary">
                     <i class="fas fa-eye"></i> Verifica e Modifica
                 </button>
             </form>
-            <p style="text-align: center; margin-top: 12px;"><a href="password_dimenticata.php">Hai dimenticato la password?</a></p>
+            <p class="profile-forgot"><a href="password_dimenticata.php">Hai dimenticato la password?</a></p>
         </div>
-        
+
         <!-- SEZIONE MODIFICA DATI -->
-        <div class="edit-section">
+        <div class="edit-section <?= $mostra_form ? 'profile-section--visible' : 'profile-section--hidden' ?>">
             <form method="POST">
                 <input type="hidden" name="aggiorna_dati" value="1">
-                
+
                 <div class="form-group">
                     <label for="nome"><i class="fas fa-user"></i> Nome *</label>
-                    <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($edit_values['nome'] ?? ''); ?>" required>
+                    <input type="text" id="nome" name="nome"
+                        value="<?php echo htmlspecialchars($edit_values['nome'] ?? ''); ?>" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="cognome"><i class="fas fa-user"></i> Cognome *</label>
-                    <input type="text" id="cognome" name="cognome" value="<?php echo htmlspecialchars($edit_values['cognome'] ?? ''); ?>" required>
+                    <input type="text" id="cognome" name="cognome"
+                        value="<?php echo htmlspecialchars($edit_values['cognome'] ?? ''); ?>" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="telefono"><i class="fas fa-phone"></i> Telefono</label>
-                    <input type="tel" id="telefono" name="telefono" value="<?php echo htmlspecialchars($edit_values['telefono'] ?? ''); ?>">
+                    <input type="tel" id="telefono" name="telefono"
+                        value="<?php echo htmlspecialchars($edit_values['telefono'] ?? ''); ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="email"><i class="fas fa-envelope"></i> Email *</label>
-                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($edit_values['email'] ?? ''); ?>" required>
+                    <input type="email" id="email" name="email"
+                        value="<?php echo htmlspecialchars($edit_values['email'] ?? ''); ?>" required>
                 </div>
-                
+
                 <!-- La domanda di sicurezza non è modificabile -->
 
                 <div class="form-group">
                     <label for="current_password"><i class="fas fa-key"></i> Password attuale *</label>
                     <div class="input-with-toggle">
-                        <input type="password" id="current_password" name="current_password" required placeholder="Password..." autocomplete="current-password">
-                        <i class="fas fa-eye toggle-password" id="toggleCurrentPassword" role="button" tabindex="0" aria-label="Mostra o nascondi password"></i>
+                        <input type="password" id="current_password" name="current_password" required
+                            placeholder="Password..." autocomplete="current-password">
+                        <i class="fas fa-eye toggle-password" id="toggleCurrentPassword" role="button" tabindex="0"
+                            aria-label="Mostra o nascondi password"></i>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="profile-btn profile-btn-primary">
                     <i class="fas fa-save"></i> Aggiorna Profilo
                 </button>
             </form>
-            
-            <form method="POST" style="margin-top: 20px;">
-                <button type="submit" name="annulla" class="btn-secondary">
+
+            <form method="POST" class="profile-cancel-form">
+                <button type="submit" name="annulla" class="profile-btn profile-btn-secondary">
                     <i class="fas fa-times"></i> Annulla
                 </button>
             </form>
         </div>
     </div>
-    
+
     <?php include __DIR__ . '/includes/footer.php'; ?>
-    
+
     <script>
         // opzione annulla (guardia: controlla l'esistenza dei bottoni)
         const annullaBtn = document.querySelector('button[name="annulla"]');
         if (annullaBtn) {
-            annullaBtn.addEventListener('click', function(e){
+            annullaBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 const pwd = document.querySelector('.password-section');
                 const edit = document.querySelector('.edit-section');
@@ -253,37 +247,37 @@ pg_close($conn);
         }
 
         // gestione visibilità password
-        (function(){
+        (function () {
             const toggleVerify = document.getElementById('toggleVerifyPassword');
             const verifyInput = document.getElementById('password');
             if (toggleVerify && verifyInput) {
-                toggleVerify.addEventListener('click', function(){
+                toggleVerify.addEventListener('click', function () {
                     const t = verifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
                     verifyInput.setAttribute('type', t);
                     this.classList.toggle('fa-eye-slash');
                     this.style.color = t === 'text' ? '#d4af37' : '#888';
                 });
-                toggleVerify.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } });
+                toggleVerify.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } });
             }
 
             const toggleCurrent = document.getElementById('toggleCurrentPassword');
             const currentInput = document.getElementById('current_password');
             if (toggleCurrent && currentInput) {
-                toggleCurrent.addEventListener('click', function(){
+                toggleCurrent.addEventListener('click', function () {
                     const t = currentInput.getAttribute('type') === 'password' ? 'text' : 'password';
                     currentInput.setAttribute('type', t);
                     this.classList.toggle('fa-eye-slash');
                     this.style.color = t === 'text' ? '#d4af37' : '#888';
                 });
-                toggleCurrent.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } });
+                toggleCurrent.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } });
             }
 
             // validazione telefono in tempo reale
             const telInput = document.getElementById('telefono');
             const telError = document.getElementById('telefono-error');
             if (telInput) {
-                telInput.addEventListener('input', function(){
-                    const digits = (this.value||'').replace(/\D/g,'');
+                telInput.addEventListener('input', function () {
+                    const digits = (this.value || '').replace(/\D/g, '');
                     if (digits.length !== 10) {
                         this.style.borderColor = '#b00020';
                         if (telError) telError.style.display = 'block';
@@ -296,4 +290,5 @@ pg_close($conn);
         })();
     </script>
 </body>
+
 </html>

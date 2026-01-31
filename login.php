@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Leggo email e password dal POST (trim sull'email)
     $email = trim($_POST["email"] ?? "");
-    $pwd   = $_POST["password"] ?? "";
+    $pwd = $_POST["password"] ?? "";
 
     // Controllo minimo: campi non vuoti
     if ($email === "" || $pwd === "") {
@@ -79,8 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 // Redirect: rispettiamo il parametro next SOLO se relativo (no open-redirect)
                 $next = '';
-                if (!empty($_GET['next'])) $next = $_GET['next'];
-                if (!empty($_POST['next'])) $next = $_POST['next'];
+                if (!empty($_GET['next']))
+                    $next = $_GET['next'];
+                if (!empty($_POST['next']))
+                    $next = $_POST['next'];
 
                 $useNext = false;
                 if (!empty($next)) {
@@ -107,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,45 +118,50 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="icon" type="image/jpeg" href="multimedia/barbiere.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
 
-<?php include __DIR__ . "/includes/header.php"; ?>
+    <?php include __DIR__ . "/includes/header.php"; ?>
 
-<main class="auth-page-log">
-    <div class="auth-card login-box">
-        <h1>Bentornato</h1>
-        <p class="auth-subtitle">Accedi per gestire i tuoi appuntamenti</p>
+    <main class="auth-page-log">
+        <div class="auth-card login-box">
+            <h1>Bentornato</h1>
+            <p class="auth-subtitle">Accedi per gestire i tuoi appuntamenti</p>
 
-        <?php if ($errore !== ""): ?>
-            <p class="auth-message auth-message--error"><?= htmlspecialchars($errore) ?></p>
-        <?php endif; ?>
-        <?php if (!empty($_GET['profile_updated'])): ?>
-            <p class="auth-message auth-message--info">Profilo aggiornato con successo. Effettua il login con le nuove credenziali.</p>
-        <?php endif; ?>
-        <?php if (!empty($_GET['registered'])): ?>
-            <p class="auth-message auth-message--info">Registrazione completata. Inserisci le tue credenziali per accedere.</p>
-        <?php endif; ?>
+            <?php if ($errore !== ""): ?>
+                <p class="auth-message auth-message--error"><?= htmlspecialchars($errore) ?></p>
+            <?php endif; ?>
+            <?php if (!empty($_GET['profile_updated'])): ?>
+                <p class="auth-message auth-message--info">Profilo aggiornato con successo. Effettua il login con le nuove
+                    credenziali.</p>
+            <?php endif; ?>
+            <?php if (!empty($_GET['registered'])): ?>
+                <p class="auth-message auth-message--info">Registrazione completata. Inserisci le tue credenziali per
+                    accedere.</p>
+            <?php endif; ?>
 
-        <form id="loginForm" action="login.php" method="POST" class="auth-form" novalidate>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="latuamail@esempio.com" required value="<?= htmlspecialchars($_GET['email'] ?? '') ?>">
-            </div>
+            <form id="loginForm" action="login.php" method="POST" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="latuamail@esempio.com" required
+                        value="<?= htmlspecialchars($_GET['email'] ?? '') ?>">
+                </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Inserisci la password" required>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Inserisci la password" required>
+                </div>
 
-            <button type="submit" class="btn-submit">Accedi</button>
+                <button type="submit" class="btn-submit">Accedi</button>
 
-            <div class="auth-links">
-                <a href="password_dimenticata.php">Password dimenticata?</a>
-                <span>Non hai un account? <a href="registrazione.php" class="gold-link">Registrati</a></span>
-            </div>
-        </form>
-    </div>
-</main>
+                <div class="auth-links">
+                    <a href="password_dimenticata.php">Password dimenticata?</a>
+                    <span>Non hai un account? <a href="registrazione.php" class="gold-link">Registrati</a></span>
+                </div>
+            </form>
+        </div>
+    </main>
 
 </body>
+
 </html>

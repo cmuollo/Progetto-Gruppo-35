@@ -177,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p class="auth-subtitle">Recupera l’accesso con la domanda di sicurezza</p>
 
         <?php if ($errore !== ""): ?>
-            <p style="color:#ff6b6b; margin-bottom:15px;"><?= htmlspecialchars($errore) ?></p>
+            <p class="auth-message auth-message--error"><?= htmlspecialchars($errore) ?></p>
         <?php endif; ?>
 
         <?php if ($step === 1): ?>
@@ -195,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div class="form-group">
                     <label>Domanda di sicurezza</label>
-                    <div style="padding:12px; background:#1a1a1a; border:1px solid #444; border-radius:5px; color:#fff;">
+                    <div class="security-question-box">
                         <?= htmlspecialchars($questionText) ?>
                     </div>
                 </div>
@@ -227,11 +227,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </form>
 
         <?php else: ?>
-            <p style="color:#d4af37; font-weight:bold; margin-bottom:10px;">Password aggiornata correttamente.</p>
-            <a href="login.php" class="btn-submit" style="display:inline-block; text-decoration:none; line-height:44px;">Vai al Login</a>
+            <p class="auth-message auth-message--success">Password aggiornata correttamente.</p>
+            <a href="login.php" class="btn-submit btn-submit-link">Vai al Login</a>
         <?php endif; ?>
 
-        <div class="auth-links" style="margin-top:15px;">
+        <div class="auth-links auth-links--compact">
             <span>Torna al <a href="login.php" class="gold-link">Login</a></span>
         </div>
 
